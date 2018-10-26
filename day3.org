@@ -1,0 +1,381 @@
+#+options: toc:nil ^:nil tags:t f:t
+#+author: Sanglae Kim
+#+title: 03. LED 및 FND(seven segment) 제어
+#+subtitle: 아두이노 시작하기
+#+description: 
+#+beamer_theme: Berlin
+#+beamer_font_theme: professionalfonts
+#+setupfile:~/org-html-themes/setup/theme-bigblow.setup
+#+HTML_HEAD_EXTRA: <style>pre {font-size:18px; font-family: 'consolas';}</style>
+* 학습목표
+  - LED 및 FND의 동작을 이해한다.
+  - 아두이노를 이용하여 LED를 ON/OFF 시킬 수 있다.
+  - delay함수를 사용하여 LED를 ON/OFF시킬 수 있다.
+  - 아두이노를 이용하여 FND를 제어 할 수 있다.
+* LED 제어 실습
+** LED 란?
+   - Light-emitting diode 발광다이오드라하며 화합물반도체의 특성을 이용해 전기에너지를
+   - 빛 에너지로 변환하는 반도체의 일종으로, 가전 및 전기전자 제품에 두루 사용된다.
+   - https://en.wikipedia.org/wiki/Light-emitting_diode
+#+caption: LED
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/led.jpg]]
+** LED Shield
+#+caption: LED Shield
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/led_shield.jpg]]
+** LED 회로도
+   - file:datasheet/led_datasheet.pdf
+*** RED(DIP 5pi)
+#+caption: RED LED Schematic
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/led_red_sch.jpg]]
+
+*** BLUE(SMD3216)
+#+caption:BLUE LED Schematic
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/led_blue_sch.jpg]]
+
+*** LED Connector
+#+caption: Connector
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/led_connector.jpg]]
+** Hands On
+#+BEGIN_SRC c++ -n
+  /*********************************************************
+		     [ LED 쉬프트 예제 ]
+
+		      LED 8개 Shift 제어
+  ,**********************************************************/
+
+  //                            1   2   3   4   5   6   7   8                  
+  const int LED_RED_PIN [8] = {22, 23, 24, 25, 26, 27, 28, 29};
+
+  /*************************************************************
+   ,* 함수명 : void setup() 
+   ,* 설  명 : 초기화를 위한 setup 함수, 1번만 실행 된다.
+   ,*************************************************************/
+  void setup() {        
+   // for문을 활용하여 LED 1~8까지를 출력으로 설정한다.
+    for(int i = 0; i < 8; i++) {
+      pinMode(LED_RED_PIN[i], OUTPUT);    // RED  LED 초기화  
+      digitalWrite(LED_RED_PIN[i], HIGH);  // RED LED의 LOW 설정   
+    }
+  }
+
+  /*************************************************************
+   ,* 함수명 : void loop() 
+   ,* 설  명 : 실질적인 코드가 구동 되는 함수로 무한 반복 됨
+   ,*************************************************************/
+  void loop() {
+    // LED 1 ~ 8까지 정방향 점등
+    for(int i = 0; i < 8; i++) {  
+      digitalWrite(LED_RED_PIN[i], LOW);      // LED를 켠다
+      delay(250);
+      digitalWrite(LED_RED_PIN[i], HIGH);     // LED를 끈다       
+    }    
+  }
+
+#+END_SRC
+
+* FND(Flexiable Numeric Display) 제어 실습
+** FND의 구조 및 동작
+   [[https://en.wikipedia.org/wiki/Seven-segment_display][Seven-segmant Wikipedia]]
+#+caption: FND
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/fnd.jpg]]
+#+caption: FND Common Anode
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/fnd_common_anode.jpg]]
+#+caption: FND Common Anode And Cathode
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/fnd_common_anode_cathode.jpg]]
+** 회로도
+   - http://www.tera-semicon.co.kr/e001/e001-019.html
+#+caption: 회로도
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/fnd_sch.jpg]]
+#+caption: 컨넥터
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/fnd_connector.jpg]]
+
+** FND SHIELD
+#+caption: FND Shield
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/fnd_shield.jpg]]
+** 정수형 상수
+   - 정수형 상수는 일반적으로 int로 취급하지만, U, L을 사용하여 long, unsigned long 등으로 변환 할 수 있다.
+   - 일반적으로 정수형 상수는 10진수로 나타내지만, 다음 표와 같이 이진수 또는 16진수로도 표현 할 수 있다.
+
+| BASE            |   EXAMPLE | FORMATTER    | COMMENT                                |
+|-----------------+-----------+--------------+----------------------------------------|
+| 10(decimal)     |       123 |              |                                        |
+| 2(binary)       | B11111011 | leading 'B'  | only works with 8bit values (0 to 255) |
+|                 |           |              | characters 0&1 valid                   |
+| 16(hexadecimal) |      0x7B | leading "0x" | characters 0-9, A-F, a-f valid         |
+
+** Hands On
+*** Example 1
+
+#+BEGIN_SRC c++ -n
+  /*
+  | FND        |  A |  B |  C |  D |  E |  F |  G | DP |
+  |------------+----+----+----+----+----+----+----+----|
+  | FND_PIN[i] | 37 | 36 | 35 | 34 | 33 | 32 | 31 | 30 |
+  | i          |  0 |  1 |  2 |  3 |  4 |  5 |  6 |  7 |
+   
+  | COM        |  1 |  2 |  3 |  4 |  5 |  6 |
+  |------------+----+----+----+----+----+----|
+  | COM_PIN[i] | 22 | 23 | 24 | 25 | 26 | 27 |
+  | i          |  0 |  1 |  2 |  3 |  4 |  5 |
+*/
+    // FND자릿수의 숫자                           
+    const uint32_t NUM_DIGIT = 6;      
+    //                             A   B   C   D   E   F   G  dp
+    const uint32_t FND_PIN[]   = {37, 36, 35, 34, 33, 32, 31, 30};   // FND의 각 핀
+    //                                 1   2   3   4   5   6
+    const uint32_t COM_PIN [NUM_DIGIT] = {22, 23, 24, 25, 26, 27}; // 자릿수 선택을 위한 핀
+
+    void setup() {
+      // 숫자핀을 OUTPUT으로 설정. 
+      for(uint32_t i = 0; i < 8; i++) pinMode( FND_PIN[i], OUTPUT );
+      // 자릿수핀을 OUTPUT으로 설정. 
+      for(uint32_t i = 0; i < NUM_DIGIT; i++) pinMode( COM_PIN[i], OUTPUT );
+      // 자릿수 핀을 OFF한다.
+      for(uint32_t i = 0; i < NUM_DIGIT; i++) digitalWrite( COM_PIN[i], LOW );
+    }
+    void loop() {
+      for (int i=0; i<8; ++i) digitalWrite(FND_PIN[i], HIGH);
+      for (int i=0; i<5; ++i) digitalWrite(COM_PIN[i], HIGH);
+      while(1){}
+    }
+#+END_SRC
+
+*** Example 2
+#+BEGIN_SRC c++ -n
+/***********************************************************
+                      [ FND 예제 ]
+          함수를 사용하여 FND에 숫자를 표시한다.
+************************************************************/ 
+// 숫자에 대한 FND의 데이터를 저장한 배열을 선언한다.
+const int FND_NUM_DATA[10] = { 
+  B00111111, // 0
+  B00000110, // 1
+  B01011011, // 2 
+  B01001111, // 3
+  B01100110, // 4
+  B01101101, // 5
+  B01111101, // 6
+  B00100111, // 7
+  B01111111, // 8
+  B01101111  // 9
+};
+// FND자릿수의 숫자                           
+const int NUM_DIGIT = 6;      
+//                        A   B   C   D   E   F   G  dp
+const int FND_PIN[]   = {37, 36, 35, 34, 33, 32, 31, 30};   // FND의 각 핀
+//                               1   2   3   4   5   6
+const int COM_PIN [NUM_DIGIT] = {22, 23, 24, 25, 26, 27}; // 자릿수 선택을 위한 핀
+/*************************************************************
+ * 함수명 : void setup() 
+ * 설  명 : 초기화를 위한 setup 함수, 1번만 실행 된다.
+ *************************************************************/
+void setup() {
+  // 숫자핀을 초기화 해준다
+  for(int i = 0; i < 8; i++) pinMode( FND_PIN[i], OUTPUT );
+  // 자릿수 핀을 초기화 해준다
+  for(int i = 0; i < NUM_DIGIT; i++) pinMode( COM_PIN[i], OUTPUT );
+  // 자릿수 핀의 출력을 OFF한다.
+  for(int i = 0; i < NUM_DIGIT; i++) digitalWrite( COM_PIN[i], LOW );
+}
+/*************************************************************
+ * 함수명 : void loop() 
+ * 설  명 : 실질적인 코드가 구동 되는 함수로 무한 반복 됨
+ *************************************************************/
+void loop() {
+  // printNumber 함수의 인자에 정수형 값을 넣으면 FND에 출력 된다.
+  // for문으로 반복 동작하여 fnd의 값을 유지한다. 
+// 약 1.5초 (300 * 5ms)
+  for(int i = 0; i < 300; i++) printNumber(1);
+  for(int i = 0; i < 300; i++) printNumber(3);
+  for(int i = 0; i < 300; i++) printNumber(5);
+  for(int i = 0; i < 300; i++) printNumber(7);  
+}
+
+/*************************************************************
+ * 함수명 : void printNumber(long number) 
+ * 인자값 : long number : 출력할 숫자를 정수로 입력 받는다.
+ * 설  명 : FND에 숫자를 출력하는 함수 
+ *************************************************************/
+void printNumber(long number) {
+  // 입력 받은 값이 0일 때 0을 출력 한다.
+  if(number == 0) {
+      // 0~5까지의 배열 값으로 자릿수가 결정 되기 때문에 -1을 해준다.
+      printDigit(0, (NUM_DIGIT - 1) );
+    } 
+  // 입력 받은 숫자 값이 0 이상 일 시
+  else {
+    for (int digit = (NUM_DIGIT - 1); digit >= 0; digit--) {
+        if(number > 0) {  
+            // 입력 받은 숫자에 나머지 연산자를 사용, 자릿수 마다의 값을 추출한다.
+            printDigit(number % 10, digit) ;
+            number = number / 10;
+          }
+      }
+  }
+}
+/*************************************************************
+ * 함수명 : void printDigit( long number, int digit)
+ * 인자값 : long number : 표시하고 싶은 숫자를 넘겨 받는다 (한 자리만 표시)
+ int digit   : 표시하고 싶은 자리를 넣는다.
+ * 설  명 : printNumber에게 값을 받아 FND의 자릿수를 선택하는 함수 
+ *************************************************************/
+void printDigit( long number, int digit) {
+  // 키고자 하는 자릿수의 핀만 ON
+  digitalWrite( COM_PIN[digit], HIGH );  
+  // 표시하고자 하는 숫자의 위치를 점등한다
+  for(int i = 0; i < 8; i++) {   
+      // 각 비트를 읽어 isBitSet에 저장
+      boolean isBitSet = bitRead(FND_NUM_DATA[number], i);
+      // 각 핀에 숫자에 해당하는 비트를 켠다
+      digitalWrite(FND_PIN[i], isBitSet);
+    }
+  delay(5);
+  // 키고자 하는 자릿수의 핀만 ON
+  digitalWrite( COM_PIN[digit], LOW ); 
+}
+#+END_SRC
+
+*** Example 3
+**** 라이브러리 관리 메뉴
+#+caption: library management 01
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/library_manager_menu.jpg]]
+
+**** MsTimer2 라이브러리 검색 및 설치
+#+caption: library management 02
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/mstimer2.jpg]]
+
+**** 라이브러리 관리창
+#+caption: library management 02
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/mstimer2_installed.jpg]]
+
+**** source code 3
+#+BEGIN_SRC c++ -n
+/***********************************************************
+                      [ FND 예제 ]
+      타이머2 라이브러리를 활용하여 FND의 1자리 값을 
+     증가 시키는 예제이다.
+************************************************************/ 
+#include <MsTimer2.h>  // 타이머2 라이브러리 http://playground.arduino.cc/Main/MsTimer2 //
+
+// 숫자에 대한 FND의 데이터를 저장한 배열을 선언한다.
+const int FND_NUM_DATA[10] = { 
+                              B00111111, // 0
+                              B00000110, // 1
+                              B01011011, // 2 
+                              B01001111, // 3
+                              B01100110, // 4
+                              B01101101, // 5
+                              B01111101, // 6
+                              B00100111, // 7
+                              B01111111, // 8
+                              B01101111  // 9
+                            };
+                       
+// FND자릿수의 숫자                           
+const int NUM_DIGIT = 6;      
+//                        A   B   C   D   E   F   G  dp
+const int FND_PIN[]   = {37, 36, 35, 34, 33, 32, 31, 30};   // FND의 각 핀
+//                            1   2   3   4   5   6
+const int COM_PIN [NUM_DIGIT] = {22, 23, 24, 25, 26, 27}; // 자릿수 선택을 위한 핀
+// FND의 값을 저장하는 전역 변수
+long printFndValue = 0;
+/*************************************************************
+ * 함수명 : void setup() 
+ * 설  명 : 초기화를 위한 setup 함수, 1번만 실행 된다.
+ *************************************************************/
+void setup() {
+  // 숫자핀을 초기화 해준다
+  for(int i = 0; i < 8; i++) pinMode( FND_PIN[i], OUTPUT );
+  // 자릿수 핀을 초기화 해준다
+  for(int i = 0; i < NUM_DIGIT; i++) pinMode( COM_PIN[i], OUTPUT );
+  // 자릿수 핀의 출력을 OFF한다.
+  for(int i = 0; i < NUM_DIGIT; i++) digitalWrite( COM_PIN[i], LOW );
+  
+  // 타이머2 라이브러리를 사용하여, FND를 지속적으로 출력한다.
+  MsTimer2::set(16, printFND); // 16ms 마다 타이머 호출. (16ms = 약 60fps)
+  MsTimer2::start();  // 타이머2를 실행한다.
+}
+/*************************************************************
+ * 함수명 : void loop() 
+ * 설  명 : 실질적인 코드가 구동 되는 함수로 무한 반복 됨
+ *************************************************************/
+void loop() {
+  // 9가 초과 될 시 전역 변수의 값을 초기화 한다.
+  if(printFndValue >= 100)
+    printFndValue = 0;
+  // 매 loop 반복시 마다 FND의 값을 증가 시킨다.    
+  else 
+    printFndValue++;
+  delay(500);
+}
+/*************************************************************
+ * 함수명 : void printNumber(long number) 
+ * 인자값 : long number : 출력할 숫자를 정수로 입력 받는다.
+ * 설  명 : FND에 숫자를 출력하는 함수 
+ *************************************************************/
+void printNumber(long number) {
+  // 입력 받은 값이 0일 때 0을 출력 한다.
+  if(number == 0) {
+    // 0~5까지의 배열 값으로 자릿수가 결정 되기 때문에 -1을 해준다.
+    printDigit(0, (NUM_DIGIT - 1) );
+  } else {// 입력 받은 숫자 값이 0 이상 일 시
+    for (int digit = (NUM_DIGIT - 1); digit >= 0; digit--) {
+      if(number > 0) {  
+        // 입력 받은 숫자에 나머지 연산자를 사용, 자릿수 마다의 값을 추출한다.
+	printDigit(number % 10, digit) ;
+	number = number / 10;
+      }
+    }
+  }
+}
+/*************************************************************
+ * 함수명 : void printDigit( long number, int digit)
+ * 인자값 : long number : 표시하고 싶은 숫자를 넘겨 받는다 (한 자리만 표시)
+ * int digit   : 표시하고 싶은 자리를 넣는다.
+ * 설  명 : printNumber에게 값을 받아 FND의 자릿수를 선택하는 함수 
+ *************************************************************/
+void printDigit( long number, int digit) { // 표기하고 싶은 숫자, 표시하고 싶은 자리
+  digitalWrite( COM_PIN[digit], HIGH );  // 키고자 하는 자릿수의 핀만 ON
+  for(int i = 0; i < 8; i++) {   // 표시하고자 하는 숫자의 위치를 점등한다
+    boolean isBitSet = bitRead(FND_NUM_DATA[number], i); // 각 비트를 읽어 isBitSet에 저장
+    digitalWrite(FND_PIN[i], isBitSet); // 각 핀에 숫자에 해당하는 비트를 켠다
+  }
+  delay(5);
+  digitalWrite( COM_PIN[digit], LOW );  // 키고자 하는 자릿수의 핀만 ON
+}
+/*************************************************************
+ * 함수명 : void printFND()
+ * 인자값 : -  
+ * 설  명 : 전역 변수 printFndValue에 저장 되어 있는 값을 출력한다.
+ *************************************************************/
+void printFND() {printNumber(printFndValue);}
+
+#+END_SRC

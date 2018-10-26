@@ -1,0 +1,215 @@
+#+options: toc:nil ^:nil tags:t f:t
+#+author: Sanglae Kim
+#+title: 04. 가변저항, CDS, 온도 및 습도센서, 서보모터 제어 
+#+subtitle: 가변저항, CDS, 온도 및 습도센서, 서보모터 제어
+#+description: 
+#+beamer_theme: Berlin
+#+beamer_font_theme: professionalfonts
+#+setupfile:~/org-html-themes/setup/theme-bigblow.setup
+#+HTML_HEAD_EXTRA: <style>pre {font-size:18px; font-family: 'consolas';}</style>
+* 학습목표
+  - 디지탈 및 아날로그 I/O의 사용 방법을 익힌다.
+  - 아날로그 I/O를 사용하여 가변저항과 CDS의 값을 측정 할 수 있다.
+  - HT-01SV 센서 라이브러리를 사용하여 온도 및 습도를 측정 할 수 있다. 
+  - 서보모터의 동작을 이해하고 아날로그 I/O를 사용하여 이를 제어 할 수 있다.
+
+* 디지털 및 아날로그 I/O
+  - 디지털 신호 : 0 과 1(0V, 5V)
+  - 아날로그 신호 : 실수의 값을 가지는 신호(0~5V)
+#+CAPTION: Mega 2560
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/arduino_mega2560_adk.jpg]]
+
+#+CAPTION: key pad & dip sw shield
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/keypad_shield_good.jpg]]
+** Hands On
+*** 디지탈 I/O 예제 1
+#+BEGIN_SRC c++ -n
+  const ledPin = 13;
+  const dipSW = 14;
+  setup(){
+    pinMode(ledPin, OUTPUT);
+    pinMode(dipSW, INPUT);
+  }
+  void loop(){
+    digitalWrite(ledPin, digitalRead(dipSW));
+  }
+#+END_SRC
+
+*** 디지탈 I/O 예제 2
+#+BEGIN_SRC c++ -n
+  const ledPin = 13;
+  const dipSW = 14;
+  setup(){
+    pinMode(ledPin, OUTPUT);
+    pinMode(dipSW, INPUT);
+  }
+  void loop(){
+    while(digitalRead(dipSW)){
+      //딥스위치가 1이 될 때까지 대기
+    }
+    digitalWrite(ledPin, LOW);
+    delay(500);
+    digitalWrite(ledPin, HIGH);
+    delay(500);
+  }
+#+END_SRC
+
+*** 아날로그 I/O
+    
+**** PWM
+     - 모터, 조명장치 제어에 사용됨
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/pulseWidthModulation.jpg]]
+**** ADC
+     - 아날로그 신호를 마이크로 프로세서가 처리 할 수 있는, 디지털 신호로 변환
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/adc.jpg]]
+#+CAPTION: 가변 저항, CDS 및 온습도 센서
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/variable_resistor_shield.jpg]]
+
+#+BEGIN_SRC c++ -n
+  /*
+  +-------+-----+-----+-----+-----+-----+-----+-----+-----+
+  |J1     |1    |2    |3    |4    |5    |6    |7    |8    |
+  +-------+-----+-----+-----+-----+-----+-----+-----+-----+
+  |       | CDS |VR   |     |     |SCK  |SDA  |     |     |
+  +-------+-----+-----+-----+-----+-----+-----+-----+-----+
+  |Arduino|     | A0  |     |     |     |     |     |     |
+  +-------+-----+-----+-----+-----+-----+-----+-----+-----+
+*/
+    const char ledPin = 13;
+    setup(){
+      // 아날로그 포트는 명시적으로 입력 또는 출력을
+      // 설정해 줄 필요없다.
+    }
+    void loop(){
+      analogWrite(ledPin, map(0, 1023, 0, 155, analogRead(A0)));
+    }
+#+END_SRC
+
+* 가변저항 및 CDS 측정
+** 가변저항 CDS, 온습도 센서 쉴드 
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/variable_resistor_shield.jpg]]
+** 가변저항
+   - 3개의 단자로 구성되어 있으며 볼륨을 돌리는 방향에 따라 중간 단자와 양측
+   - 두 단자 간의 저항 값이 변하는 소자이다.
+** CdS(Cadmium-sulfide photo resistor)
+   - CdS 센서는 빛의 밝기에 따라 저항값이 달라지는 소자다.
+   - 빛이 밝아지면 저항값이 작아지고
+   - 어두워지면 저항값은 커지는 특성을 가진다.
+** 가변저항과 아날로그 포트 연결
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/adc_theory.jpg]]
+** 소스코드
+#+BEGIN_SRC C -n
+/*
++-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|J1   |1    |2    |3    |4    |5    |6    |7    |8    |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|     | CDS |VR   |     |     |SCK  |SDA  |     |     |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+
+A0 <-> VR / CdS
+*/
+  void setup (){
+    Serial.begin (9600);
+  }
+  void loop (){
+    int vrValue = analogRead(A0);
+    Serial.println(vrValue);
+    analogWrite (13, map ( vrValue, 0, 1023, 0, 255));
+    delay (100);
+  }
+#+END_SRC
+
+* 온도 및 습도 센서 제어(HT-01SV )
+** HT-01SV
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/ht_01sv.jpg]]
+    
+** Example 1
+#+BEGIN_SRC C -n
+  /*
+  +--------+-----+-----+-----+-----+-----+-----+-----+-----+
+  |J1      |1    |2    |3    |4    |5    |6    |7    |8    |
+  +--------+-----+-----+-----+-----+-----+-----+-----+-----+
+  |        | CDS |VR   |     |     |SCK  |SDA  |     |     |
+  +--------+-----+-----+-----+-----+-----+-----+-----+-----+
+  | Arduino|     |     |     |     |21   |20   |     |     |
+  +--------+-----+-----+-----+-----+-----+-----+-----+-----+
+  A0 <-> VR / CdS
+  */
+    #include <SHT1x.h>  // 온습도 센서 라이브러리 다운로드 주소 https://github.com/practicalarduino/SHT1x //
+
+    const int dataPin = 20;          // 데이터핀
+    const int clockPin = 21;         // 클럭핀
+
+    SHT1x sht1x(dataPin, clockPin);  // 온습도 센서를 활용을 위해 객체를 선언
+
+    void setup() {
+      Serial.begin(9600);  // 시리얼 통신 속도를 9600으로 설정한다.
+    }
+
+    void loop() {
+      int temperatureValue = (int)sht1x.readTemperatureC() ; // 온도 값을 읽어 저장한다.
+      int humidityValue =  (int)sht1x.readHumidity();    // 습도 값을 읽어 저장한다.
+
+      // 온도 값을 출력한다.
+      Serial.print("Temperature Value : ");  // 시리얼 모니터에 "Temperature Value"를 출력한다.
+      Serial.print(temperatureValue);        // 센서 값을 시리얼 모니터로 출력한다.
+      Serial.print("'C");
+    
+      // 습도 값을 출력한다.
+      Serial.print("\t Humidity Value : "); // 시리얼 모니터에 "Humidity Value"를 출력한다.
+      Serial.print(humidityValue);          // 센서 값을 시리얼 모니터로 출력한다.  
+      Serial.println("%");  
+    
+      // 약 100ms (1/100초)의 지연시간을 주어 100ms마다 동작을 반복하게 한다.  
+      delay(100);          
+    }
+#+END_SRC
+
+* 서보모터(Servo Motor )제어
+    
+**** 서보모터 연결
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/servo_motor.jpg]]
+
+**** PWM 및 서보모터 각도
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/servo_pwm_diagram1.jpg]]
+**** 서보모터쉴드 
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/motor_shield.jpg]]
+**** 모터 드라이버
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/motor_driver.jpg]]
+
+**** 예제 소스코드
+     
+#+BEGIN_SRC C -n
+/*
++-------+-----+-----+-----+-----+-----+-----+-----+-----+
+|J3     |1    |2    |3    |4    |5    |6    |7    |8    |
++-------+-----+-----+-----+-----+-----+-----+-----+-----+
+|       |SERVO|     |EN   |     |IN1  |IN2  |IN3  |IN4  |
++-------+-----+-----+-----+-----+-----+-----+-----+-----+
+|Arduino| 7   |     |     |     |     |     |     |     |
++-------+-----+-----+-----+-----+-----+-----+-----+-----+
+ A0 <-> 가변저항
+ 7  <-> 서보모터
+ */
+  #include <Servo.h>
+  Servo myServo;
+  void setup (){
+    myServo.attach (7);
+    delay (1000);
+  }
+  void loop (){
+    myServo.write ( map( analogRead(A0), 0, 1023, 0, 180));
+    delay (100);
+  }
+#+END_SRC
