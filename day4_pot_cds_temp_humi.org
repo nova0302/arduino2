@@ -141,7 +141,6 @@
   +--------+-----+-----+-----+-----+-----+-----+-----+-----+
   | Arduino|     |     |     |     |21   |20   |     |     |
   +--------+-----+-----+-----+-----+-----+-----+-----+-----+
-  A0 <-> VR / CdS
   */
     #include <SHT1x.h>  // 온습도 센서 라이브러리 다운로드 주소 https://github.com/practicalarduino/SHT1x //
 
@@ -172,6 +171,16 @@
       delay(100);          
     }
 #+END_SRC
+
+**** SHT1x 라이브러리 설치
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/sht1xLibrary1.jpg]]
+
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/sht1xLibrary2.jpg]]
+
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/sht1xLibrary3.jpg]]
 
 * 서보모터(Servo Motor )제어
     
