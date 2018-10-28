@@ -91,6 +91,7 @@
 #+END_SRC
 
 * 가변저항 및 CDS 측정
+  https://www.youtube.com/watch?v=_6QIutZfsFs
 ** 가변저항 CDS, 온습도 센서 쉴드 
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/variable_resistor_shield.jpg]]
