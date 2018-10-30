@@ -65,6 +65,8 @@
 **** ADC
      - 아날로그 신호를 마이크로 프로세서가 처리 할 수 있는, 디지털 신호로 변환
 #+ATTR_HTML: :width 800 :hight 600
+   [[./images/adc1.jpg]]
+#+ATTR_HTML: :width 800 :hight 600
    [[./images/adc.jpg]]
 #+CAPTION: 가변 저항, CDS 및 온습도 센서
 #+ATTR_HTML: :width 800 :hight 600
