@@ -189,6 +189,8 @@
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/sht1xLibrary5.jpg]]
 
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/sht1xLibrary6.jpg]]
 * 서보모터(Servo Motor )제어
     
 **** 서보모터 연결
