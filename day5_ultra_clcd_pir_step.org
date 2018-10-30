@@ -26,23 +26,23 @@
 
 ** 초음파 거리측정 예제
 #+BEGIN_SRC C -n 
-   +-------+-----+-----+-----+-----+
-   |J2     |1    |2    |3    |4    |
-   +-------+-----+-----+-----+-----+
-   |       |ECHO |TRIG |     |     |
-   +-------+-----+-----+-----+-----+
-   |Arduino|3    |2    |     |     |
-   +-------+-----+-----+-----+-----+
+  /*
+    +-------+------+------+-----+-----+
+    |J2     |1/ECHO|2/TRIG|3    |4    |
+    +-------+------+------+-----+-----+
+    |Arduino|3     |2     |     |     |
+    +-------+------+------+-----+-----+
+  */
 
   /*************************************************************
-                  [ Ultra Sonic 센서 실습 ]
+		    [ Ultra Sonic 센서 실습 ]
     
-         시리얼 모니터로 초음파 센서의 값을 확인한다.
-  **************************************************************/
+	   시리얼 모니터로 초음파 센서의 값을 확인한다.
+  ,**************************************************************/
 
   /**************************************************************
-   * 초음파 센서 관련 변수 선언
-   **************************************************************/ 
+   ,* 초음파 센서 관련 변수 선언
+   ,**************************************************************/ 
   const int  sonicValue = 58;   // 초음파 센서 제어를 위한 값 설정
   const char triggerPin = 2;   // 트리거핀의 번호
   const char echoPin = 3;      // 에코핀의 번호
@@ -52,9 +52,9 @@
   char buffer[16];                 // 초음파 센서 값을 문자열로 만들기 위한 배열 선언
 
   /*************************************************************
-   * 함수명 : void setup() 
-   * 설  명 : 초기화를 위한 setup 함수, 1번만 실행 된다.
-   *************************************************************/
+   ,* 함수명 : void setup() 
+   ,* 설  명 : 초기화를 위한 setup 함수, 1번만 실행 된다.
+   ,*************************************************************/
   void setup() {
 
     // 시리얼 통신을 위한 설정, baudrate 9600.
@@ -68,9 +68,9 @@
   }
 
   /*************************************************************
-   * 함수명 : void loop() 
-   * 설  명 : 실질적인 코드가 구동 되는 함수로 무한 반복 됨
-   *************************************************************/
+   ,* 함수명 : void loop() 
+   ,* 설  명 : 실질적인 코드가 구동 되는 함수로 무한 반복 됨
+   ,*************************************************************/
   void loop() {
     sensorValue = getSonic();
     
@@ -80,16 +80,16 @@
     Serial.println(buffer);
   }
   /***************************************************************
-        [ func_ultrasonic ]
-      - 초음파 센서와 관련 된 함수 모음
-  ****************************************************************/
+	  [ func_ultrasonic ]
+	- 초음파 센서와 관련 된 함수 모음
+  ,****************************************************************/
 
   /*************************************************************
-   * 함수명 : long getSonic() 
-   * 반환형 : long
-   * 반환값 : duration : 초음파 센서의 값을 반환 받는다.
-   * 설  명 : 초음파 센서의 값을 받아온다. 
-   *************************************************************/
+   ,* 함수명 : long getSonic() 
+   ,* 반환형 : long
+   ,* 반환값 : duration : 초음파 센서의 값을 반환 받는다.
+   ,* 설  명 : 초음파 센서의 값을 받아온다. 
+   ,*************************************************************/
   long getSonic() {
     long duration, distance;
 
@@ -239,87 +239,96 @@
 
 * Stepper Motor
 ** 예제 1: 1 Phase 구동
+
 #+BEGIN_SRC C -n
-/*********************************************************
-                   [ 스탭모터 실습 ]
+  /*
+    1. Motor shield cable connection
+    +-------+-------+-----+-----+-----+-----+-----+-----+-----+
+    |J3     |1/SERVO|2    |3/EN |4    |5/IN1|6/IN2|7/IN3|8/IN4|
+    +-------+-------+-----+-----+-----+-----+-----+-----+-----+
+    |Arduino|       |     |5    |     |3    |2    |1    |0    |
+    +-------+-------+-----+-----+-----+-----+-----+-----+-----+
+  */
+  /*********************************************************
+		     [ 스탭모터 실습 ]
   
-                  STEP MOTOR의 1상 제어
-**********************************************************/
-#define CW  1            // 정방향 값 정의
-#define CCW 0            // 역방향 값 정의
+		    STEP MOTOR의 1상 제어
+  ,**********************************************************/
+  #define CW  1            // 정방향 값 정의
+  #define CCW 0            // 역방향 값 정의
 
-const int _A_IN1 = 3;     // Motor Pin A' Input 1 (Orange)
-const int  A_IN2 = 2;     // Motor Pin A  Input 2 (Brown)
-const int  B_IN3 = 1;     // Motor Pin B  Input 3 (RED)
-const int _B_IN4 = 0;     // Motor Pin B' Input 4 (YELLOW)
+  const int _A_IN1 = 3;     // Motor Pin A' Input 1 (Orange)
+  const int  A_IN2 = 2;     // Motor Pin A  Input 2 (Brown)
+  const int  B_IN3 = 1;     // Motor Pin B  Input 3 (RED)
+  const int _B_IN4 = 0;     // Motor Pin B' Input 4 (YELLOW)
 
-const int EnablePin = 5;  // 활성핀
+  const int EnablePin = 5;  // 활성핀
 
-// 핀에 인가 될 값에 대한 테이블. 
-// 1상 여자, 2상 여자, 1,2상 여자 설정이 가능하다.
-// 현재는 1상 여자 설정
-const boolean  A_IN_table[4] = {1,0,0,0};
-const boolean  B_IN_table[4] = {0,1,0,0};
-const boolean _A_IN_table[4] = {0,0,1,0};
-const boolean _B_IN_table[4] = {0,0,0,1};
+  // 핀에 인가 될 값에 대한 테이블. 
+  // 1상 여자, 2상 여자, 1,2상 여자 설정이 가능하다.
+  // 현재는 1상 여자 설정
+  const boolean  A_IN_table[4] = {1,0,0,0};
+  const boolean  B_IN_table[4] = {0,1,0,0};
+  const boolean _A_IN_table[4] = {0,0,1,0};
+  const boolean _B_IN_table[4] = {0,0,0,1};
 
-void setup() {
-  pinMode(EnablePin,OUTPUT);      // Enable 핀을 출력으로 설정한다
-  digitalWrite(EnablePin, HIGH);  // Enable 핀에 HIGH 신호를 준다
+  void setup() {
+    pinMode(EnablePin,OUTPUT);      // Enable 핀을 출력으로 설정한다
+    digitalWrite(EnablePin, HIGH);  // Enable 핀에 HIGH 신호를 준다
   
-  pinMode(_A_IN1, OUTPUT); // A 핀을 출력으로 설정
-  pinMode(A_IN2, OUTPUT);  // A'핀을 출력으로 설정
-  pinMode(_B_IN4, OUTPUT); // B'핀을 출력으로 설정
-  pinMode(B_IN3, OUTPUT);  // B 핀을 출력으로 설정
-}
+    pinMode(_A_IN1, OUTPUT); // A 핀을 출력으로 설정
+    pinMode(A_IN2, OUTPUT);  // A'핀을 출력으로 설정
+    pinMode(_B_IN4, OUTPUT); // B'핀을 출력으로 설정
+    pinMode(B_IN3, OUTPUT);  // B 핀을 출력으로 설정
+  }
 
-void loop() {
-  // 스테퍼 모터를 정방향으로 펄스를 준다. (한 바퀴에 200펄스)
-  // 100스탭일시 180도만큼 동작한다. 
-  stepMotor_move(100, CW, 2200);  // 속도 값은 최소 2200이상 (1상 여자)
+  void loop() {
+    // 스테퍼 모터를 정방향으로 펄스를 준다. (한 바퀴에 200펄스)
+    // 100스탭일시 180도만큼 동작한다. 
+    stepMotor_move(100, CW, 2200);  // 속도 값은 최소 2200이상 (1상 여자)
   
-  // 1000ms 동안 대기 한다.
-  delay(1000);
-}
+    // 1000ms 동안 대기 한다.
+    delay(1000);
+  }
 
-/*************************************************************
- * 함수명 : void stepMotor_move(unsigned int MotorStep, 
-                 char MotorDirection, unsigned int MotorSpeed)
- * 인자값 : unsigned int MotorStep  - 모터의 스탭 값
-            char MotorDirection     - 모터의 동작 방향
-            unsigned int MotorSpeed - 모터의 속도
- * 설  명 : 서보모터를 구동 시키는 함수. 1스탭 간격으로 동작한다.
- *************************************************************/
-void stepMotor_move(unsigned int MotorStep, char MotorDirection, unsigned int MotorSpeed) {  
-  if(MotorDirection) {
-    for(int i = 0; i < MotorStep; i++) {
-      // 제어를 위한 모터의 핀이 4개 이기 때문에 그 이상의 값으로 loop를 수행해도
-      // 정상적인 범주로 값이 들어가야 하기 떄문에  (0,1,2,0,1,2 ... ) %4를 연산한 만큼 반복한다.
-      setPhase(i % 4);
-      // 'MotorSpeed' microSecod 만큼 신호를 유지한다
-      delayMicroseconds(MotorSpeed);  // Pulse Hold Time
-    }
-  } else {
-    for(int j = MotorStep; j >= 0; j--) {
-      setPhase(j % 4);
-      delayMicroseconds(MotorSpeed);  // Pulse Hold Time
+  /*************************************************************
+   ,* 함수명 : void stepMotor_move(unsigned int MotorStep, 
+		   char MotorDirection, unsigned int MotorSpeed)
+		   ,* 인자값 : unsigned int MotorStep  - 모터의 스탭 값
+	      char MotorDirection     - 모터의 동작 방향
+	      unsigned int MotorSpeed - 모터의 속도
+	      ,* 설  명 : 서보모터를 구동 시키는 함수. 1스탭 간격으로 동작한다.
+	      ,*************************************************************/
+  void stepMotor_move(unsigned int MotorStep, char MotorDirection, unsigned int MotorSpeed) {  
+    if(MotorDirection) {
+      for(int i = 0; i < MotorStep; i++) {
+	// 제어를 위한 모터의 핀이 4개 이기 때문에 그 이상의 값으로 loop를 수행해도
+	// 정상적인 범주로 값이 들어가야 하기 떄문에  (0,1,2,0,1,2 ... ) %4를 연산한 만큼 반복한다.
+	setPhase(i % 4);
+	// 'MotorSpeed' microSecod 만큼 신호를 유지한다
+	delayMicroseconds(MotorSpeed);  // Pulse Hold Time
+      }
+    } else {
+      for(int j = MotorStep; j >= 0; j--) {
+	setPhase(j % 4);
+	delayMicroseconds(MotorSpeed);  // Pulse Hold Time
+      }
     }
   }
-}
 
-/*************************************************************
- * 함수명 : void setPhase(unsigned char phase)
- * 인자값 : unsigned char phase  - 상이 미리 저장 되어 있는 
-            배열을 사용하기 위한 인자 값
- * 설  명 : 테이블에 저장 된 상 값으로 펄스를 준다
- *************************************************************/
-void setPhase(unsigned char phase) {
-  // Pulse generation
-  digitalWrite( A_IN2,  A_IN_table[phase]);
-  digitalWrite( B_IN3,  B_IN_table[phase]);  
-  digitalWrite(_A_IN1, _A_IN_table[phase]);      
-  digitalWrite(_B_IN4, _B_IN_table[phase]);   
-}
+  /*************************************************************
+   ,* 함수명 : void setPhase(unsigned char phase)
+   ,* 인자값 : unsigned char phase  - 상이 미리 저장 되어 있는 
+	      배열을 사용하기 위한 인자 값
+	      ,* 설  명 : 테이블에 저장 된 상 값으로 펄스를 준다
+	      ,*************************************************************/
+  void setPhase(unsigned char phase) {
+    // Pulse generation
+    digitalWrite( A_IN2,  A_IN_table[phase]);
+    digitalWrite( B_IN3,  B_IN_table[phase]);  
+    digitalWrite(_A_IN1, _A_IN_table[phase]);      
+    digitalWrite(_B_IN4, _B_IN_table[phase]);   
+  }
 #+END_SRC
 
 ** 예제 2: 모터 드라이버를 사용하여 구동하기

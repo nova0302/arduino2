@@ -111,9 +111,7 @@
 #+BEGIN_SRC C -n
   /*
     +-------+-----+-----+-----+-----+-----+-----+-----+-----+
-    |J1     |1    |2    |3    |4    |5    |6    |7    |8    |
-    +-------+-----+-----+-----+-----+-----+-----+-----+-----+
-    |       | CDS |VR   |     |     |SCK  |SDA  |     |     |
+    |J1     |1/CdS|2/VR |3    |4    |5/SCK|6/SDA|7    |8    |
     +-------+-----+-----+-----+-----+-----+-----+-----+-----+
     |Arduino|     |A0   |     |     |     |     |     |     |
     +-------+-----+-----+-----+-----+-----+-----+-----+-----+
@@ -137,42 +135,40 @@
 ** 온도 및 습도 센서 예제
 #+BEGIN_SRC C -n
   /*
-  +--------+-----+-----+-----+-----+-----+-----+-----+-----+
-  |J1      |1    |2    |3    |4    |5    |6    |7    |8    |
-  +--------+-----+-----+-----+-----+-----+-----+-----+-----+
-  |        | CDS |VR   |     |     |SCK  |SDA  |     |     |
-  +--------+-----+-----+-----+-----+-----+-----+-----+-----+
-  | Arduino|     |     |     |     |21   |20   |     |     |
-  +--------+-----+-----+-----+-----+-----+-----+-----+-----+
+    +--------+-----+-----+-----+-----+-----+-----+-----+-----+
+    |J1      |1/CDS|2/VR |3    |4    |5/SCK|6/SDA|7    |8    |
+    +--------+-----+-----+-----+-----+-----+-----+-----+-----+
+    | Arduino|     |     |     |     |21   |20   |     |     |
+    +--------+-----+-----+-----+-----+-----+-----+-----+-----+
   */
-    #include <SHT1x.h>  // 온습도 센서 라이브러리 다운로드 주소 https://github.com/practicalarduino/SHT1x //
+  #include <SHT1x.h>  // 온습도 센서 라이브러리 다운로드 주소 https://github.com/practicalarduino/SHT1x //
 
-    const int dataPin = 20;          // 데이터핀
-    const int clockPin = 21;         // 클럭핀
+  const int dataPin = 20;          // 데이터핀
+  const int clockPin = 21;         // 클럭핀
 
-    SHT1x sht1x(dataPin, clockPin);  // 온습도 센서를 활용을 위해 객체를 선언
+  SHT1x sht1x(dataPin, clockPin);  // 온습도 센서를 활용을 위해 객체를 선언
 
-    void setup() {
-      Serial.begin(9600);  // 시리얼 통신 속도를 9600으로 설정한다.
-    }
+  void setup() {
+    Serial.begin(9600);  // 시리얼 통신 속도를 9600으로 설정한다.
+  }
 
-    void loop() {
-      int temperatureValue = (int)sht1x.readTemperatureC() ; // 온도 값을 읽어 저장한다.
-      int humidityValue =  (int)sht1x.readHumidity();    // 습도 값을 읽어 저장한다.
+  void loop() {
+    int temperatureValue = (int)sht1x.readTemperatureC() ; // 온도 값을 읽어 저장한다.
+    int humidityValue =  (int)sht1x.readHumidity();    // 습도 값을 읽어 저장한다.
 
-      // 온도 값을 출력한다.
-      Serial.print("Temperature Value : ");  // 시리얼 모니터에 "Temperature Value"를 출력한다.
-      Serial.print(temperatureValue);        // 센서 값을 시리얼 모니터로 출력한다.
-      Serial.print("'C");
-    
-      // 습도 값을 출력한다.
-      Serial.print("\t Humidity Value : "); // 시리얼 모니터에 "Humidity Value"를 출력한다.
-      Serial.print(humidityValue);          // 센서 값을 시리얼 모니터로 출력한다.  
-      Serial.println("%");  
-    
-      // 약 100ms (1/100초)의 지연시간을 주어 100ms마다 동작을 반복하게 한다.  
-      delay(100);          
-    }
+    // 온도 값을 출력한다.
+    Serial.print("Temperature Value : ");  // 시리얼 모니터에 "Temperature Value"를 출력한다.
+    Serial.print(temperatureValue);        // 센서 값을 시리얼 모니터로 출력한다.
+    Serial.print("'C");
+
+    // 습도 값을 출력한다.
+    Serial.print("\t Humidity Value : "); // 시리얼 모니터에 "Humidity Value"를 출력한다.
+    Serial.print(humidityValue);          // 센서 값을 시리얼 모니터로 출력한다.  
+    Serial.println("%");  
+
+    // 약 100ms (1/100초)의 지연시간을 주어 100ms마다 동작을 반복하게 한다.  
+    delay(100);          
+  }
 #+END_SRC
 
 **** SHT1x 라이브러리 설치
@@ -210,23 +206,18 @@
    [[./images/motor_driver.jpg]]
 
 **** 서보 모터 예제 
-     
 #+BEGIN_SRC C -n
   /*
-   1. Motor shield cable connection
-    +-------+-----+-----+-----+-----+-----+-----+-----+-----+
-    |J3     |1    |2    |3    |4    |5    |6    |7    |8    |
-    +-------+-----+-----+-----+-----+-----+-----+-----+-----+
-    |       |SERVO|     |EN   |     |IN1  |IN2  |IN3  |IN4  |
-    +-------+-----+-----+-----+-----+-----+-----+-----+-----+
-    |Arduino| 7   |     |     |     |     |     |     |     |
-    +-------+-----+-----+-----+-----+-----+-----+-----+-----+
+    1. Motor shield cable connection
+    +-------+-------+-----+-----+-----+-----+-----+-----+-----+
+    |J3     |1/SERVO|2    |3/EN |4    |5/IN1|6/IN2|7/IN3|8/IN4|
+    +-------+-------+-----+-----+-----+-----+-----+-----+-----+
+    |Arduino| 7     |     |     |     |     |     |     |     |
+    +-------+-------+-----+-----+-----+-----+-----+-----+-----+
 
     2. VR/CdS/TempHumi shield cable connection
     +-------+-----+-----+-----+-----+-----+-----+-----+-----+
-    |J1     |1    |2    |3    |4    |5    |6    |7    |8    |
-    +-------+-----+-----+-----+-----+-----+-----+-----+-----+
-    |       | CDS |VR   |     |     |SCK  |SDA  |     |     |
+    |J1     |1/CDS|2/VR |3    |4    |5/SCK|6/SDA|7    |8    |
     +-------+-----+-----+-----+-----+-----+-----+-----+-----+
     |Arduino|     | A0  |     |     |     |     |     |     |
     +-------+-----+-----+-----+-----+-----+-----+-----+-----+
