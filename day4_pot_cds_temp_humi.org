@@ -23,7 +23,7 @@
 #+CAPTION: key pad & dip sw shield
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/keypad_shield_good.jpg]]
-** Hands On
+** 실   습
 *** 디지탈 I/O 예제 1
 #+BEGIN_SRC c++ -n
   const ledPin = 13;
@@ -107,7 +107,7 @@
 ** 가변저항과 아날로그 포트 연결
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/adc_theory.jpg]]
-** 소스코드
+** 가변저항 및 CdS 예제
 #+BEGIN_SRC C -n
   /*
     +-------+-----+-----+-----+-----+-----+-----+-----+-----+
@@ -134,7 +134,7 @@
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/ht_01sv.jpg]]
     
-** Example 1
+** 온도 및 습도 센서 예제
 #+BEGIN_SRC C -n
   /*
   +--------+-----+-----+-----+-----+-----+-----+-----+-----+
@@ -209,7 +209,7 @@
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/motor_driver.jpg]]
 
-**** 예제 소스코드
+**** 서보 모터 예제 
      
 #+BEGIN_SRC C -n
   /*

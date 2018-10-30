@@ -24,7 +24,7 @@
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/ultrasonic_theory.jpg]]
 
-** 소 스 코 드
+** 초음파 거리측정 예제
 #+BEGIN_SRC C -n 
    +-------+-----+-----+-----+-----+
    |J2     |1    |2    |3    |4    |
@@ -130,7 +130,7 @@
 **** CLCD Shield
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/clcd_shield_zoomin.jpg]]
-*** Example 1    
+*** Example 1: 캐릭터 LCD 기본
 #+BEGIN_SRC C -n
 +-------+-----+-----+-----+-----+-----+-----+-----+-----+
 |J2     |     |     |EN   |RS   |DB6  |DB4  |     |     |
@@ -162,7 +162,7 @@
   }
 #+END_SRC
      
-*** Example Autoscroll    
+*** Example 2: Autoscroll    
  #+BEGIN_SRC C -n
    #include <LiquidCrystal.h>  
 
@@ -203,7 +203,7 @@
    }
  #+END_SRC
 
-*** Example setcursor    
+*** Example 3: setcursor    
  #+BEGIN_SRC C -n
    #include <LiquidCrystal.h>  
 
@@ -238,7 +238,7 @@
 
 
 * Stepper Motor
-** 1 Phase
+** 예제 1: 1 Phase 구동
 #+BEGIN_SRC C -n
 /*********************************************************
                    [ 스탭모터 실습 ]
@@ -322,7 +322,7 @@ void setPhase(unsigned char phase) {
 }
 #+END_SRC
 
-** Using Stepper Motor Library
+** 예제 2: 모터 드라이버를 사용하여 구동하기
 #+BEGIN_SRC C -n
 /*********************************************************
             [ STEP MOTOR 속성을 LCD에 출력하기 ]
