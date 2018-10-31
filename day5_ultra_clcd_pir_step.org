@@ -117,7 +117,7 @@
 ** pulsein function
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/pulseIn.jpg]]
-
+[[https://www.arduino.cc/reference/en/language/functions/advanced-io/pulsein/][pulseIn]]
 
 * 캐릭터 LCD
 ** CLCD Module
