@@ -15,6 +15,10 @@
   - UART 모듈의 동작 및 원리를 이해하고, 제어 프로그램을 작성하여 컴퓨터와 통신 할 수 있다.
 
 * PIR(Pyroelectric passive infrared)
+#+CAPTION: Figure 1: basic drawing of PIR sensor
+#+NAME: fig:basic drawing of PIR sensor
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/pirShield.jpg]]
   
 ** 응용분야
    - 모션감지
