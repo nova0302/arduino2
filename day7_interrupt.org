@@ -1,0 +1,119 @@
+
+#+options: toc:nil ^:nil tags:t f:t
+#+author: Sanglae Kim
+#+title: 07. Interrupt
+#+subtitle: Interrupt
+#+description: 
+#+beamer_theme: Berlin
+#+beamer_font_theme: professionalfonts
+#+setupfile:~/org-html-themes/setup/theme-bigblow.setup
+#+HTML_HEAD_EXTRA: <style>pre {font-size:18px; font-family: 'consolas';}</style>
+* 학습목표
+  - Interrupt에 대한 동작 원리를 이해하고 이를 활용하여 프로그램을 작성할 수 있다.
+  - GPIO Interrupt에 대한 동작 원리를 이해하고 이를 활용하여 프로그램을 작성할 수 있다.
+  - Timer Interrupt에 대한 동작 원리를 이해하고 이를 활용하여 프로그램을 작성할 수 있다.
+
+* [[target][Interrupt]]
+** 보드별 인터럽트 핀
+|-----------------------------------+------------------------------------|
+| Board                             | Digital pins usable for interrupts |
+|-----------------------------------+------------------------------------|
+| /                                 | <                                  |
+| Uno, Nano, Mini, other 328-based  | 2, 3                               |
+| _Mega, Mega2560, MegaADK_         | 2, 3, 18, 19, 20, 21               |
+| Micro, Leonardo, other 32u4-based | 0, 1, 2, 3, 7                      |
+| Zero                              | all digital pins, except 4         |
+| MKR1000 Rev.1                     | 0, 1, 4, 5, 6, 7, 8, 9, A1, A2     |
+| Due                               | all digital pins                   |
+| 101                               | all digital pins                   |
+|-----------------------------------+------------------------------------|
+
+** Interrupt Image
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/interrupt.jpg]]
+** Interrupt 예제소스 
+   
+*** GPIO Interrupt with servo motor
+  #+BEGIN_SRC C -n
+    #include <Servo.h>
+    // A0 <-> 가변저항
+    // 7  <-> 서보모터
+    // 2  <-> 딥스위치 
+    Servo myServo;
+    const byte ledPin = 13;
+    const byte interruptPin = 2; // 1. <- 인터럽트핀 정의
+    int ledValue = 0;
+
+    // 2. <- 인터럽트 처리를 위한 변수 
+    volatile bool ledFlag = false;
+
+    void setup (){
+      // 3. <- 인터럽트핀 모드설정
+      pinMode(interruptPin, INPUT);
+      // 4. <- 인터럽트핀 설정                    핀             ISR         동작시점 
+      attachInterrupt(digitalPinToInterrupt(interruptPin), increaseLED, RISING);
+      myServo.attach (7);
+      delay (1000);
+    }
+
+    void loop (){
+      myServo.write ( map( analogRead(A0), 0, 1023, 0, 180));
+      analogWrite(ledPin, ledValue);
+      delay (100);
+
+      if (ledFlag) {
+	ledFlag = false;
+	if(ledValue == 255) ledValue =0;
+	else ledValue++;
+      }
+    }
+    // 5. <- ISR 정의
+    void increaseLED() {ledFlag = true;}
+  #+END_SRC
+  
+
+*** Timer Interrupt
+**** Arduino way
+  #+BEGIN_SRC c -n
+
+    // Toggle LED on pin 13 each second
+    #include <MsTimer2.h>
+    void flash() {
+      static boolean output = HIGH;
+      digitalWrite(13, output);
+      output = !output;
+    }
+    void setup() {
+      pinMode(13, OUTPUT);
+      MsTimer2::set(500, flash); // 500ms period
+      MsTimer2::start();
+    }
+    void loop() {}
+  #+END_SRC
+**** Timer Avr Way
+     
+#+BEGIN_SRC c -n
+  int timer=0;
+  bool state=0;
+  void setup(){
+    pinMode(13, OUTPUT);
+    TCCR0A = (1<<WGM01);
+    OCR0A = 0xF9;
+    TIMSK0 |= (1 << OCIE0A);
+    sei();
+    //TCCR0B |= (1<<CS01);
+    //TCCR0B |= (1<<CS00);
+    TCCR0B |= (1<<CS01) | (1<<CS00);
+  }
+
+  void loop(){
+    if(timer>=100){
+      state = !state;
+      timer = 0;
+    }
+    digitalWrite(13, state);
+  }
+  ISR(TIMER0_COMPA_vect){
+    timer++;
+  }
+#+END_SRC

@@ -1,6 +1,6 @@
 #+options: toc:nil ^:nil tags:t f:t
 #+author: Sanglae Kim
-#+title: 05. 초음파 센서, 캐릭터 LCD, 스텝모터, PIR
+#+title: 05. 초음파 센서, 캐릭터 LCD, 스텝모터 
 #+subtitle: 
 #+description: 
 #+beamer_theme: Berlin
