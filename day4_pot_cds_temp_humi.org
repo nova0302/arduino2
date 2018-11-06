@@ -133,7 +133,7 @@
    [[./images/ht_01sv.jpg]]
     
 ** 온도 및 습도 센서 예제 
-   
+ http://www.circuitbasics.com/basics-of-the-i2c-communication-protocol/  
 *** 1. 온도 및 습도 시리얼 츨력 
 #+BEGIN_SRC C -n
   /*
