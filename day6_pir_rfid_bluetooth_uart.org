@@ -48,6 +48,9 @@
    [[file:doc/PIR_Intro_from_ST.pdf]]
 
 ** PIR 예제
+   - [[https://www.arduino.cc/reference/en/language/functions/external-interrupts/attachinterrupt/][attatchInterrupt()]]
+   - attatchInterrupt(digitalPinToInterrupt(pin), ISR, mode);
+
 *** Example 1: PIR 기본
  #+BEGIN_SRC C -n
    /*
@@ -142,10 +145,10 @@
 
 * Communication
 ** Bluetooth Communication
-**** Bluetooth Module
+*** Bluetooth Module
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/bt_module.jpg]]
-**** Android App
+*** Android App
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/spp_pro.jpg]]
 #+ATTR_HTML: :width 800 :hight 600
@@ -154,85 +157,81 @@
    [[./images/bluetooth_spp_pro1.jpg]]
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/bluetooth_spp_pro2.jpg]]
-**** Cable Connection
-#+BEGIN_SRC C 
-BT module      Arduino
-BTTXD    <->    RX1(19)
-BTRXD    <->    TX1(18)
-#+END_SRC
-**** Android <-> bluetooth module <-> Arduino <-> Computer Example
+*** Android <-> bluetooth module <-> Arduino <-> Computer Example
 #+BEGIN_SRC C -n
-/************************************************************
-  [ 블루투스 연계 LED 실습 ]
-- 안드로이드 기기로 LED를 제어한다.
-// 시리얼 데이터 수신에 관한 플래그
- *************************************************************/
-boolean ledState = false;
-volatile boolean serialEventFlag = false;
-volatile boolean serialEventFlag1 = false;
+  /*
+    +-------+-------+-------+-------+-------+-------+-------+-----+-----+
+    |J3     |1/BTTXD|2/BTRXD|3/USTXD|4/USRXD|5/RSTXD|6/RSRXD|7    |8    |
+    +-------+-------+-------+-------+-------+-------+-------+-----+-----+
+    |Arduino|19/RX1 |18/TX1 |       |       |       |       |     |     |
+    +-------+-------+-------+-------+-------+-------+-------+-----+-----+
+  */
+  boolean ledState = false;
+  volatile boolean serialEventFlag = false;
+  volatile boolean serialEventFlag1 = false;
 
-String rxString = "";
-String txString = "";
+  String rxString = "";
+  String txString = "";
 
-void setup() {
-  Serial.begin(9600);
-  Serial1.begin(9600);
-  pinMode(13, OUTPUT);
-  rxString.reserve(200);
-  txString.reserve(200);
-  Serial.println("---- Starting the Program  -----");
-}
-void loop() {
-  // Event from Android through Bluetooth
-  if(serialEventFlag1){
-    serialEventFlag1 = false;
-    // doesn't work as I intended..Hmmmmm
-    Serial.println(rxString.length());
-    if(rxString == "off")
-      digitalWrite(13, LOW);
-    else if(rxString == "on")
-      digitalWrite(13, HIGH);
-    else if(rxString == "toggle")
-      toggleLed();
-    Serial.print(rxString);
-    rxString = "";
+  void setup() {
+    Serial.begin(9600);
+    Serial1.begin(9600);
+    pinMode(13, OUTPUT);
+    rxString.reserve(200);
+    txString.reserve(200);
+    Serial.println("---- Starting the Program  -----");
   }
-  // Event from PC through RS232
-  if(serialEventFlag){
-    serialEventFlag = false;
-    Serial1.println(txString.length());
-    Serial1.print(txString);
-    txString = "";
-  }
-}
-void toggleLed(){
-  if(ledState){
-    ledState = false;
-    digitalWrite(13, HIGH);
-  } else{
-    ledState = true;
-    digitalWrite(13, LOW);
-  }
-}
-void serialEvent1() {
-  //Bluetooth_RX_Count = 0;
-  while(Serial1.available() > 0){
-    delay(10);
-    char inChar = (char)Serial1.read();
-    if(inChar == '\n'){
-      serialEventFlag1 = true;
-      return;
+  void loop() {
+    // Event from Android through Bluetooth
+    if(serialEventFlag1){
+      serialEventFlag1 = false;
+      // doesn't work as I intended..Hmmmmm
+      Serial.println(rxString.length());
+      if(rxString == "off")
+	digitalWrite(13, LOW);
+      else if(rxString == "on")
+	digitalWrite(13, HIGH);
+      else if(rxString == "toggle")
+	toggleLed();
+      Serial.print(rxString);
+      rxString = "";
     }
-    rxString += inChar;
+    // Event from PC through RS232
+    if(serialEventFlag){
+      serialEventFlag = false;
+      Serial1.println(txString.length());
+      Serial1.print(txString);
+      txString = "";
+    }
   }
-}
-void serialEvent(){
-  while(Serial.available()){
-    char inChar = (char)Serial.read();
-    txString += inChar;
-    if(inChar == '\n')
-      serialEventFlag = true;
+  void toggleLed(){
+    if(ledState){
+      ledState = false;
+      digitalWrite(13, HIGH);
+    } else{
+      ledState = true;
+      digitalWrite(13, LOW);
+    }
   }
-}
+  void serialEvent1() {
+    //Bluetooth_RX_Count = 0;
+    while(Serial1.available() > 0){
+      delay(10);
+      char inChar = (char)Serial1.read();
+      if(inChar == '\n'){
+	serialEventFlag1 = true;
+	return;
+      }
+      rxString += inChar;
+    }
+  }
+  void serialEvent(){
+    while(Serial.available()){
+      char inChar = (char)Serial.read();
+      txString += inChar;
+      if(inChar == '\n')
+	serialEventFlag = true;
+    }
+  }
 #+END_SRC
 ** UART Communication
