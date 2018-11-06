@@ -1,0 +1,48 @@
+#+options: toc:nil ^:nil tags:t f:t
+#+author: Sanglae Kim
+#+title: 06. PIR, RF ID, Bluetooth, UART
+#+subtitle: 06. PIR, RF ID, Bluetooth, UART 
+#+description: 
+#+beamer_theme: Berlin
+#+beamer_font_theme: professionalfonts
+#+setupfile:~/org-html-themes/setup/theme-bigblow.setup
+#+HTML_HEAD_EXTRA: <style>pre {font-size:18px; font-family: 'consolas';}</style>
+* 학습목표
+  - 각종 모듈의 제어를 위한 함수들을 익힌다.
+  - PIR 센서의 동작 원리를 이해하고, 제어하여 할 수 있다.
+  - RF ID의 동작 원리를 이해하고, 제어하여 할 수 있다.
+  - Bluetooth 모듈의 동작 및 원리를 이해하고, 제어하여 스마트폰과 통신 할 수 있다.
+  - UART 모듈의 동작 및 원리를 이해하고, 제어하여 컴퓨터와 통신 할 수 있다.
+
+* PIR(Pyroelectric passive infrared)
+  
+** 응용분야
+   - 모션감지
+   - 보안시스템
+   - 자동 도어
+   - 자동램프 제어
+     
+** 동작원리
+   - 지구상이 모든 물체는 적외선(IR)에너지를 가지고 있다.
+   - 어떤 물체의 IR 에너지는 다음과 같은 여러가지 파라미터에 따라 달라진다.
+   - 1. 온도, 2. 색갈, 3. 텍스쳐
+   - 이러한 에너지는 눈에 보이지 않지만 PIR 센터는 이를 탐지할 수 있다.
+   - passive IR 센서는 active IR과 달리 ultrasound, 빛 또는 마이크로웨이브 에너지를 방출하지 않는다.
+
+#+CAPTION: Figure 1: basic drawing of PIR sensor
+#+NAME: fig:basic drawing of PIR sensor
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/pir1.jpg]]
+
+#+CAPTION: Figure 2: 동작원리 of PIR sensor
+#+NAME: fig:basic drawing of PIR sensor
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/pir2.jpg]]
+** 세부 동작 원리
+   - PIR 센서는 어떤 특정한 영역에 물에의 움직임을 감지하도록 설계됬다.
+   - 다음 그림 2에서와 같이 이러한 센서들은 IR을 감지하는 두개의 센서를 가지고 있다.
+   - 물체가 정해진 영역에서 움직임녀 두 센서에서 감지하는 IR의 양이 달다진다.
+   - 이러한 차이를 증폭하여 물체의 움직임을 감지할 수 있다.
+   - 그림에서 센서의 출력전압의 변화를 확인할 수 있다. 
+** 영문 참조 문서
+./doc/PIR_Intro_from_ST.pdf
