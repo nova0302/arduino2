@@ -9,10 +9,10 @@
 #+HTML_HEAD_EXTRA: <style>pre {font-size:18px; font-family: 'consolas';}</style>
 * 학습목표
   - 각종 모듈의 제어를 위한 함수들을 익힌다.
-  - PIR 센서의 동작 원리를 이해하고, 제어하여 할 수 있다.
-  - RF ID의 동작 원리를 이해하고, 제어하여 할 수 있다.
-  - Bluetooth 모듈의 동작 및 원리를 이해하고, 제어하여 스마트폰과 통신 할 수 있다.
-  - UART 모듈의 동작 및 원리를 이해하고, 제어하여 컴퓨터와 통신 할 수 있다.
+  - PIR 센서의 동작 원리를 이해하고, 제어 프로그램을 작성 할 수 있다.
+  - RF ID의 동작 원리를 이해하고, 제어 프로그램을 작성 할 수 있다.
+  - Bluetooth 모듈의 동작 및 원리를 이해하고, 제어 프로그램을 작성하여 스마트폰과 통신 할 수 있다.
+  - UART 모듈의 동작 및 원리를 이해하고, 제어 프로그램을 작성하여 컴퓨터와 통신 할 수 있다.
 
 * PIR(Pyroelectric passive infrared)
   
@@ -34,15 +34,15 @@
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/pir1.jpg]]
 
-#+CAPTION: Figure 2: 동작원리 of PIR sensor
-#+NAME: fig:basic drawing of PIR sensor
-#+ATTR_HTML: :width 800 :hight 600
-   [[./images/pir2.jpg]]
 ** 세부 동작 원리
    - PIR 센서는 어떤 특정한 영역에 물에의 움직임을 감지하도록 설계됬다.
    - 다음 그림 2에서와 같이 이러한 센서들은 IR을 감지하는 두개의 센서를 가지고 있다.
    - 물체가 정해진 영역에서 움직임녀 두 센서에서 감지하는 IR의 양이 달다진다.
    - 이러한 차이를 증폭하여 물체의 움직임을 감지할 수 있다.
    - 그림에서 센서의 출력전압의 변화를 확인할 수 있다. 
+#+CAPTION: Figure 2: 동작원리 of PIR sensor
+#+NAME: fig:basic drawing of PIR sensor
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/pir2.jpg]]
 ** 영문 참조 문서
-./doc/PIR_Intro_from_ST.pdf
+   [[file:doc/PIR_Intro_from_ST.pdf]]
