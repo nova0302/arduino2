@@ -35,9 +35,9 @@
    [[./images/pir1.jpg]]
 
 ** 세부 동작 원리
-   - PIR 센서는 어떤 특정한 영역에 물에의 움직임을 감지하도록 설계됬다.
+   - PIR 센서는 어떤 특정한 영역에 물체의 움직임을 감지하도록 설계됬다.
    - 다음 그림 2에서와 같이 이러한 센서들은 IR을 감지하는 두개의 센서를 가지고 있다.
-   - 물체가 정해진 영역에서 움직임녀 두 센서에서 감지하는 IR의 양이 달다진다.
+   - 물체가 정해진 영역에서 움직이면, 두 센서에서 감지하는 IR의 양이 달다진다.
    - 이러한 차이를 증폭하여 물체의 움직임을 감지할 수 있다.
    - 그림에서 센서의 출력전압의 변화를 확인할 수 있다. 
 #+CAPTION: Figure 2: 동작원리 of PIR sensor
@@ -46,3 +46,193 @@
    [[./images/pir2.jpg]]
 ** 영문 참조 문서
    [[file:doc/PIR_Intro_from_ST.pdf]]
+
+** PIR 예제
+*** Example 1: PIR 기본
+ #+BEGIN_SRC C -n
+   /*
+     +-------+-----+-----+-----+-----+------+------+-----+-----+
+     |J2     |1    |2    |3    |4    |5     |6     |7    |8    |
+     +-------+-----+-----+-----+-----+------+------+-----+-----+
+     |Arduino|     |     |     |     |      |      |     |     |
+     +-------+-----+-----+-----+-----+------+------+-----+-----+
+   */
+
+   const char pirPin = 2;
+   const char ledPin = 13;
+   char ledState = 0;
+   volatile char toggleLed = 0;
+   void setup(){
+     Serial.begin(9600);
+     pinMode(pirPin, INPUT);
+     pinMode(ledPin, OUTPUT);
+     attachInterrupt(digitalPinToInterrupt(pirPin), ledISR, RISING);
+     digitalWrite(ledPin, HIGH);
+   }
+   void loop(){
+     if(toggleLed){
+       toggleLed = 0;
+       Serial.println("Detected!!!");
+       if(ledState == 1){
+	 ledState = 0;
+	 digitalWrite(ledPin, LOW);
+      
+       }else{
+	 ledState = 1;
+	 digitalWrite(ledPin, HIGH);
+       }
+     }
+   }
+   void ledISR(){toggleLed = 1;}
+ #+END_SRC
+
+*** Example 2: PIR & Stepper Motor 
+ #+BEGIN_SRC C -n
+   /*
+     +-------+-----+-----+-----+-----+------+------+-----+-----+
+     |J2     |1    |2    |3    |4    |5     |6     |7    |8    |
+     +-------+-----+-----+-----+-----+------+------+-----+-----+
+     |Arduino|     |     |     |     |      |      |     |     |
+     +-------+-----+-----+-----+-----+------+------+-----+-----+
+   */
+ 
+   #include <Servo.h>
+   Servo myServo;
+   const char pirPin = 2;
+   const char ledPin = 13;
+   char ledState = 0;
+   volatile char toggleLED = 0;
+
+   void setup(){
+     myServo.attach(7);
+     Serial.begin(9600);
+     pinMode(pirPin, INPUT);
+     pinMode(ledPin, OUTPUT);
+     attachInterrupt(digitalPinToInterrupt(pirPin), ledISR, RISING);
+     digitalWrite(ledPin, HIGH);
+   }
+
+   void loop(){checkPir();}
+
+   void ledISR(){toggleLED = 1;}
+   void checkPir(){
+     if(toggleLED){
+       toggleLED = 0;
+       Serial.println("Detected!!!");
+       toggleLedFunc();
+       onServo();
+     }
+   }
+   void toggleLedFunc(){
+     if(ledState == 1){
+       ledState = 0;
+       digitalWrite(ledPin, LOW);
+     }else{
+       ledState = 1;
+       digitalWrite(ledPin, HIGH);
+     }
+   }
+   void onServo(){
+     myServo.write(180);
+     delay(1000);
+     myServo.write(0);
+     delay(1000);
+   }
+ #+END_SRC
+
+* Communication
+** Bluetooth Communication
+**** Bluetooth Module
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/bt_module.jpg]]
+**** Android App
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/spp_pro.jpg]]
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/bluetooth_spp_pro.jpg]]
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/bluetooth_spp_pro1.jpg]]
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/bluetooth_spp_pro2.jpg]]
+**** Cable Connection
+#+BEGIN_SRC C 
+BT module      Arduino
+BTTXD    <->    RX1(19)
+BTRXD    <->    TX1(18)
+#+END_SRC
+**** Android <-> bluetooth module <-> Arduino <-> Computer Example
+#+BEGIN_SRC C -n
+/************************************************************
+  [ 블루투스 연계 LED 실습 ]
+- 안드로이드 기기로 LED를 제어한다.
+// 시리얼 데이터 수신에 관한 플래그
+ *************************************************************/
+boolean ledState = false;
+volatile boolean serialEventFlag = false;
+volatile boolean serialEventFlag1 = false;
+
+String rxString = "";
+String txString = "";
+
+void setup() {
+  Serial.begin(9600);
+  Serial1.begin(9600);
+  pinMode(13, OUTPUT);
+  rxString.reserve(200);
+  txString.reserve(200);
+  Serial.println("---- Starting the Program  -----");
+}
+void loop() {
+  // Event from Android through Bluetooth
+  if(serialEventFlag1){
+    serialEventFlag1 = false;
+    // doesn't work as I intended..Hmmmmm
+    Serial.println(rxString.length());
+    if(rxString == "off")
+      digitalWrite(13, LOW);
+    else if(rxString == "on")
+      digitalWrite(13, HIGH);
+    else if(rxString == "toggle")
+      toggleLed();
+    Serial.print(rxString);
+    rxString = "";
+  }
+  // Event from PC through RS232
+  if(serialEventFlag){
+    serialEventFlag = false;
+    Serial1.println(txString.length());
+    Serial1.print(txString);
+    txString = "";
+  }
+}
+void toggleLed(){
+  if(ledState){
+    ledState = false;
+    digitalWrite(13, HIGH);
+  } else{
+    ledState = true;
+    digitalWrite(13, LOW);
+  }
+}
+void serialEvent1() {
+  //Bluetooth_RX_Count = 0;
+  while(Serial1.available() > 0){
+    delay(10);
+    char inChar = (char)Serial1.read();
+    if(inChar == '\n'){
+      serialEventFlag1 = true;
+      return;
+    }
+    rxString += inChar;
+  }
+}
+void serialEvent(){
+  while(Serial.available()){
+    char inChar = (char)Serial.read();
+    txString += inChar;
+    if(inChar == '\n')
+      serialEventFlag = true;
+  }
+}
+#+END_SRC
+** UART Communication
