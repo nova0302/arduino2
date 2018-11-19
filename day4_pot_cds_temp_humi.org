@@ -277,7 +277,7 @@
    [[./images/motor_shield.jpg]]
 **** 모터 드라이버
 #+ATTR_HTML: :width 800 :hight 600
-   [[./images/motor_driver.jpg]]
+   [[./images/motor.jpg]]
 
 **** 서보 모터 예제 
 #+BEGIN_SRC C -n
