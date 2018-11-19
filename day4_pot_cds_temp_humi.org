@@ -272,11 +272,11 @@
 **** PWM 및 서보모터 각도
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/servo_pwm_diagram1.jpg]]
-**** 서보모터쉴드 
+**** 스텝퍼 & 서보모터
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/motor_shield.jpg]]
 **** 모터 드라이버
-#+ATTR_HTML: :width 800 :hight 600
+#+ATTR_HTML: :width 815 :hight 478
    [[./images/motor.jpg]]
 
 **** 서보 모터 예제 
