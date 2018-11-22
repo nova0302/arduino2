@@ -102,7 +102,7 @@
 #+attr_html: :width 100% :height 100%
     [[./images/font.jpg]]
     
-** 아두이노 GUI 인터페이스 이해하기
+** 아두이노 GUI 이해하기
    #+CAPTION: Arduino Interface
 #+attr_html: :alt neural network :title Neural network representation :align right
 #+attr_html: :width 100% :height 100%
@@ -160,7 +160,7 @@
    
 *** 실행 및 확인 
    - 업로드(Ctrl-U)및 확인
-   [[./video/v01.mp4]]
+   - https://youtu.be/zThoWUI5DEE
    
 ** blink LED 
    #+name: blinkLed.ino
