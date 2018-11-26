@@ -24,7 +24,11 @@
 **** Notepad++
      - https://notepad-plus-plus.org/download/v7.6.html
 **** youtube 동영상
-     - https://www.youtube.com/watch?v=zuDmA8D1fK4&t=6s
+     - Visual Studio 
+       - https://www.youtube.com/watch?v=zuDmA8D1fK4&t=6s
+     - notepad++ 
+       - https://www.youtube.com/watch?v=49058ekyTd0&t=4s
+
 *** 실 습 방 법
     - GUI
     - VS 2017에 대한 개발자 명령 프롬프트 + NotePad++
