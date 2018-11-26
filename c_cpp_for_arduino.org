@@ -19,7 +19,7 @@
 
 * 26. 콘솔입출력 및 연산자
 *** 툴 설 치
-**** Visual Studio Community Eidtion
+**** Visual Studio Community Edition
      - https://visualstudio.microsoft.com/ko/vs/community/?rr=https%3A%2F%2Fwww.google.co.kr%2F
 **** Notepad++
      - https://notepad-plus-plus.org/download/v7.6.html
@@ -112,7 +112,7 @@ You have entered 0xff (255).
 #+END_EXAMPLE
 
 *** 연산자
-    - 사칙연산사
+    - 사칙연산자
       - +, -, *, /
     - 삼항연산자
       - bigNumber = (2 > 3) ? 2 : 3;
