@@ -1,0 +1,317 @@
+#+TITLE:     아두이노를 위한 C/C++ 특강
+#+AUTHOR:    Sanglae Kim
+#+EMAIL:     nova0302@hotmail.com
+#+LANGUAGE:  en
+#+OPTIONS:  toc:t H:3 num:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:https://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+startup: beamer
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [presentation, smaller]
+#+LATEX_HEADER: \usepackage{kotex, listings}
+#+BEAMER_FRAME_LEVEL: 2
+#+BEAMER_THEME: Frankfurt
+#+BEAMER_INNER_THEME: rounded
+
+#+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
+
+* 26. 콘솔입출력 및 연산자
+*** 툴 설 치
+**** Visual Studio Community Eidtion
+     - https://visualstudio.microsoft.com/ko/vs/community/?rr=https%3A%2F%2Fwww.google.co.kr%2F
+**** Notepad++
+     - https://notepad-plus-plus.org/download/v7.6.html
+**** youtube 동영상
+     - https://www.youtube.com/watch?v=zuDmA8D1fK4&t=6s
+*** 실 습 방 법
+    - GUI
+    - VS 2017에 대한 개발자 명령 프롬프트 + NotePad++
+     - cl helloWorld.c && helloWorld.exe
+*** Hello World
+    #+BEGIN_SRC C -n
+  #include <stdio.h>
+  int main(){
+    printf("Hello World");
+    return 0;
+  }
+    #+END_SRC
+*** 입출력함수
+    - 출력합수
+      - puts
+      - fputs
+      - putchar
+      - printf
+    - 입력함수
+      - getchar
+      - gets
+      - scanf
+*** printf
+    #+BEGIN_SRC C
+          int printf( const char * format, ...);
+    #+END_SRC
+    - 표준출력(모니터)으로 format이 지정하는 문자열을 출력한다.
+    - http://www.cplusplus.com/reference/cstdio/printf/
+*** printf 예제 
+    #+BEGIN_SRC C -n
+ #include <stdio.h>
+ int main(){
+    printf ("Characters: %c %c \n", 'a', 65);
+    printf ("Decimals: %d %ld\n", 1977, 650000L);
+    printf ("Preceding with blanks: %10d \n", 1977);
+    printf ("Width trick: %*d \n", 5, 10);
+    printf ("%s \n", "A string");
+    return 0;
+ }
+    #+END_SRC
+*** 실행결과
+#+BEGIN_EXAMPLE
+     Characters:  a             A       
+     Decimals:    1977     650000       
+     Preceding    with    blanks:  1977 
+     Width        trick:       10       
+     A            string                
+#+END_EXAMPLE
+*** scanf
+    #+BEGIN_SRC C
+  int scanf(const char * format, ...);
+    #+END_SRC
+    - 표준입력(키보드)으로부터 데이터를 입력받아 format에 따라 추가적인 파라미터가 가리키는 변수에 저장한다.
+    - http://www.cplusplus.com/reference/cstdio/scanf/
+*** scanf 예제
+#+BEGIN_SRC C -n
+#include <stdio.h>
+int main (){
+  char str [80];
+  int i;
+
+  printf ("Enter your family name: ");
+  scanf ("%79s",str);  
+  printf ("Enter your age: ");
+  scanf ("%d",&i);
+  printf ("Mr. %s , %d years old.\n",str,i);
+  printf ("Enter a hexadecimal number: ");
+  scanf ("%x",&i);
+  printf ("You have entered %#x (%d).\n",i,i);
+
+  return 0;
+}
+#+END_SRC
+*** 실행결과
+#+BEGIN_EXAMPLE
+Enter your family name: Soulie
+Enter your age: 29
+Mr. Soulie , 29 years old.
+Enter a hexadecimal number: ff
+You have entered 0xff (255).
+#+END_EXAMPLE
+
+*** 연산자
+    - 사칙연산사
+      - +, -, *, /
+    - 삼항연산자
+      - bigNumber = (2 > 3) ? 2 : 3;
+    - 나머지 연산자( % )
+      - r = 7 % 2
+    - 단항연산자
+      - ++, --
+*** 삼항연산자 예제
+**** source code
+#+BEGIN_SRC C -n
+#include <stdio.h>
+int main(int argc, char *argv[])
+{
+  int num1=3, num2=4;
+  int bigNumber;
+//  fputs("Enter two numbers : ", stdout);
+//  scanf("%d %d", &num1, &num2);
+  bigNumber = (num1 > num2) ? num1 : num2;
+  printf("The big number is  %d \n", bigNumber);
+  return 0;
+}
+#+END_SRC
+**** 실행결과
+#+RESULTS:
+: The big number is  4
+
+*** 응용예제
+**** source code
+#+BEGIN_SRC C -n
+  #include <stdio.h>
+  int main(){
+    int temp = 0;
+    int N = 10;
+    for (int i=0; i<N; i++)
+      if(i%2)
+	temp += i;
+    printf("Sum of odd numbers from 0 to %d is %d\n", N, temp);
+  }
+#+END_SRC
+**** 실행결과
+#+RESULTS:
+: Sum of odd numbers from 0 to 10 is 25
+
+* 27. 조건문과 반복문
+*** if (조건) {실행문} else {실행문}
+#+BEGIN_SRC C -n
+  #include <stdio.h>
+  typedef enum _Fruits {BANANA, APPLE} Fruits;
+  Fruits theFruit;
+  int main () {
+    printf("Which fruit do you like?\n");
+    printf("0. Banana 1. Apple ");
+    scanf("%d", &theFruit);
+    printf("Your answer is %d\n",theFruit);
+    if(theFruit == BANANA)
+      printf("It's banana\n");
+    else if(theFruit == APPLE)
+      printf("It's apple\n");
+    else
+      printf("O Oh!! Your got the wrong fruit.....\n");
+    break;
+  }
+#+END_SRC
+*** switch-case 
+#+BEGIN_SRC C -n
+  #include <stdio.h>
+   typedef enum _Fruits {BANANA, APPLE} Fruits;
+   Fruits theFruit;
+   int main () {
+     printf("Which fruit do you like?\n");
+     printf("0. Banana 1. Apple ");
+     scanf("%d", &theFruit);
+     printf("Your answer is %d\n",theFruit);
+     switch (theFruit) {
+       case BANANA:
+	  printf("It's banana\n");
+	  break;
+       case APPLE:
+	  printf("It's apple\n");
+	  break;
+       default:
+	  printf("O Oh!! Your got the wrong fruit.....\n");
+	  break;
+     }
+   } 
+#+END_SRC
+
+*** for loop
+
+* 28. 배열 및 문자열
+*** Two columns
+**** A block                                          :B_ignoreheading:BMCOL:
+     :PROPERTIES:
+     :BEAMER_env: ignoreheading
+     :BEAMER_col: 0.4
+     :END:
+     - this slide consists of two columns
+     - the first (left) column has no heading and consists of text
+     - the second (right) column has an image and is enclosed in an
+       @example@ block
+**** A screenshot                                           :BMCOL:B_example:
+     :PROPERTIES:
+     :BEAMER_col: 0.6
+     :BEAMER_env: example
+     :END:
+     - this slide consists of two columns
+     - the first (left) column has no heading and consists of text
+     - the second (right) column has an image and is enclosed in an
+
+* 29. 다양한 함수 만들기
+*** Two columns
+**** A block                                          :B_ignoreheading:BMCOL:
+     :PROPERTIES:
+     :BEAMER_env: ignoreheading
+     :BEAMER_col: 0.4
+     :END:
+     - this slide consists of two columns
+     - the first (left) column has no heading and consists of text
+     - the second (right) column has an image and is enclosed in an
+       @example@ block
+**** A screenshot                                           :BMCOL:B_example:
+     :PROPERTIES:
+     :BEAMER_col: 0.6
+     :BEAMER_env: example
+     :END:
+     - this slide consists of two columns
+     - the first (left) column has no heading and consists of text
+     - the second (right) column has an image and is enclosed in an
+
+* 30. 구조체 및 클래스
+*** Two columns
+**** A block                                          :B_ignoreheading:BMCOL:
+     :PROPERTIES:
+     :BEAMER_env: ignoreheading
+     :BEAMER_col: 0.4
+     :END:
+     - this slide consists of two columns
+     - the first (left) column has no heading and consists of text
+     - the second (right) column has an image and is enclosed in an
+       @example@ block
+**** A screenshot                                           :BMCOL:B_example:
+     :PROPERTIES:
+     :BEAMER_col: 0.6
+     :BEAMER_env: example
+     :END:
+     - this slide consists of two columns
+     - the first (left) column has no heading and consists of text
+     - the second (right) column has an image and is enclosed in an
+
+* Intro 3
+*** Two columns
+**** A block                                          :B_ignoreheading:BMCOL:
+     :PROPERTIES:
+     :BEAMER_env: ignoreheading
+     :BEAMER_col: 0.4
+     :END:
+     - this slide consists of two columns
+     - the first (left) column has no heading and consists of text
+     - the second (right) column has an image and is enclosed in an
+       @example@ block
+**** A screenshot                                           :BMCOL:B_example:
+     :PROPERTIES:
+     :BEAMER_col: 0.6
+     :BEAMER_env: example
+     :END:
+     - this slide consists of two columns
+     - the first (left) column has no heading and consists of text
+     - the second (right) column has an image and is enclosed in an
+
+* Intro 4
+*** Babel
+    :PROPERTIES:
+    :BEAMER_envargs: [t]
+    :END:
+**** Octave code                                              :BMCOL:B_block:
+     :PROPERTIES:
+     :BEAMER_col: 0.45
+     :BEAMER_env: block
+     :END:
+     #+name: octaveexample
+     #+begin_src octave :results output :exports both
+ A = [1 2 ; 3 4]
+ b = [1; 1];
+ x = A\b
+     #+end_src
+
+**** The output                                               :BMCOL:B_block:
+     :PROPERTIES:
+     :BEAMER_col: 0.4
+     :BEAMER_env: block
+     :BEAMER_envargs: <2->
+     :END:
+
+     #+results: octaveexample
+     #+begin_example
+     A =
+
+        1   2
+        3   4
+
+     x =
+
+       -1
+        1
+
+     #+end_example
