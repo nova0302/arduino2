@@ -172,6 +172,24 @@
     delay(100);          
   }
 #+END_SRC
+**** SHT1x 라이브러리 설치
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/sht1xLibrary1.jpg]]
+
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/sht1xLibrary2.jpg]]
+
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/sht1xLibrary3.jpg]]
+
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/sht1xLibrary4.jpg]]
+
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/sht1xLibrary5.jpg]]
+
+#+ATTR_HTML: :width 800 :hight 600
+   [[./images/sht1xLibrary6.jpg]]
 *** 2. 응용예제
 #+BEGIN_SRC c -n
   /*********************************************************
@@ -245,24 +263,6 @@
 
 #+END_SRC
 
-**** SHT1x 라이브러리 설치
-#+ATTR_HTML: :width 800 :hight 600
-   [[./images/sht1xLibrary1.jpg]]
-
-#+ATTR_HTML: :width 800 :hight 600
-   [[./images/sht1xLibrary2.jpg]]
-
-#+ATTR_HTML: :width 800 :hight 600
-   [[./images/sht1xLibrary3.jpg]]
-
-#+ATTR_HTML: :width 800 :hight 600
-   [[./images/sht1xLibrary4.jpg]]
-
-#+ATTR_HTML: :width 800 :hight 600
-   [[./images/sht1xLibrary5.jpg]]
-
-#+ATTR_HTML: :width 800 :hight 600
-   [[./images/sht1xLibrary6.jpg]]
 * 서보모터(Servo Motor )제어
     
 **** 서보모터 연결
