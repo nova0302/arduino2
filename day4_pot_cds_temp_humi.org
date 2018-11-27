@@ -1,6 +1,6 @@
 #+options: toc:nil ^:nil tags:t f:t
 #+author: Sanglae Kim
-#+title: 04. 가변저항, CDS, 온도 및 습도센서, 서보모터 제어 
+#+title: 04. 가변저항, CdS, 온도 및 습도센서, 서보모터 제어 
 #+subtitle: 가변저항, CDS, 온도 및 습도센서, 서보모터 제어
 #+description: 
 #+beamer_theme: Berlin
