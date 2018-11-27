@@ -92,9 +92,9 @@
     }
 #+END_SRC
 
-* 가변저항 및 CDS 측정
+* 가변저항 및 CdS 측정
   https://www.youtube.com/watch?v=_6QIutZfsFs
-** 가변저항 CDS, 온습도 센서 쉴드 
+** 가변저항 CdS, 온습도 센서 쉴드 
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/variable_resistor_shield.jpg]]
 ** 가변저항
@@ -115,7 +115,7 @@
     +-------+-----+-----+-----+-----+-----+-----+-----+-----+
     |Arduino|     |A0   |     |     |     |     |     |     |
     +-------+-----+-----+-----+-----+-----+-----+-----+-----+
-  */
+  ,*/
   void setup (){
     Serial.begin (9600);
   }
