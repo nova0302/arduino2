@@ -202,6 +202,7 @@ int main(int argc, char *argv[])
 
 *** for loop
 #+BEGIN_SRC C -n
+// Factirial 예제
   #include <stdio.h>
   #define FU_ERROR -100
   int fact(int);
@@ -229,6 +230,7 @@ int main(int argc, char *argv[])
 #+END_SRC
 *** for loop with while
 #+BEGIN_SRC C -n
+// 약수구하기
 #include <stdio.h>
 int main()
 {
