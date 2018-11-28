@@ -229,8 +229,29 @@ int main(int argc, char *argv[])
 #+END_SRC
 *** for loop with while
 #+BEGIN_SRC C -n
-
-
+#include <stdio.h>
+int main()
+{
+  int num;
+  int ret;
+  int i;
+  while(1){
+    fputs("Enter a number bigger than 1 : ", stdout);
+    ret = scanf("%d", &num);
+    if(ret == EOF)
+      break;
+    else if(num <1 )
+      puts("The number must be bigger than 1,  Enter again \n");
+    else{
+      printf("factors of %d \n", num);
+      for (i=1; i<num; i++) {
+        if((num%i) == 0)
+          printf("%d ", i);
+      }
+      printf("\n\n");
+    }
+  }
+}
 #+END_SRC
 * 28. 배열 및 문자열
 *** Two columns
