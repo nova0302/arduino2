@@ -201,7 +201,37 @@ int main(int argc, char *argv[])
 #+END_SRC
 
 *** for loop
+#+BEGIN_SRC C -n
+  #include <stdio.h>
+  #define FU_ERROR -100
+  int fact(int);
+  int main(int argc, char *argv[])
+  {
+    int n, result;
+    fputs("Enter a inteer number bigger than 0: ", stdout);
+    scanf("%d", &n);
+    result = fact(n);
+    if(result == FU_ERROR)
+      puts("unexpected error!!!!");
+    else
+      printf("%d! = %d \n", n, result);
+    return 0;
+  }
+  int fact(int N){
+    int f = 1;
+    int i;
+    if(N < 1) return FU_ERROR;
+    for (i=1; i<=N; i++) {
+      f *= i;
+    }
+    return f;
+  }
+#+END_SRC
+*** for loop with while
+#+BEGIN_SRC C -n
 
+
+#+END_SRC
 * 28. 배열 및 문자열
 *** Two columns
 **** A block                                          :B_ignoreheading:BMCOL:
