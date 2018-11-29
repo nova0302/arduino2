@@ -2,9 +2,9 @@
 #+AUTHOR:    Sanglae Kim
 #+EMAIL:     nova0302@hotmail.com
 #+LANGUAGE:  en
-#+OPTIONS:  toc:t H:3 num:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:  toc:nil H:3 num:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:https://orgmode.org/org-info.js
+#+INFOJS_OPT: view:nil ltoc:t mouse:underline buttons:0 path:https://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
 #+startup: beamer
@@ -17,29 +17,6 @@
 #+COLUMNS: %40ITEM %10BEAMER_env(Env) %9BEAMER_envargs(Env Args) %4BEAMER_col(Col) %10BEAMER_extra(Extra)
 
 * 26. 콘솔입출력 및 연산자
-*** 툴 설 치
-**** Visual Studio Community Edition
-     - https://visualstudio.microsoft.com/ko/vs/community/?rr=https%3A%2F%2Fwww.google.co.kr%2F
-**** Notepad++
-     - https://notepad-plus-plus.org/download/v7.6.html
-**** youtube 동영상
-     - Visual Studio 
-       - https://www.youtube.com/watch?v=zuDmA8D1fK4&t=6s
-     - notepad++ 
-       - https://www.youtube.com/watch?v=49058ekyTd0&t=4s
-
-*** 실 습 방 법
-    - GUI
-    - VS 2017에 대한 개발자 명령 프롬프트 + NotePad++
-     - cl helloWorld.c && helloWorld.exe
-*** Hello World
-    #+BEGIN_SRC C -n
-  #include <stdio.h>
-  int main(){
-    printf("Hello World");
-    return 0;
-  }
-    #+END_SRC
 *** 입출력함수
     - 출력합수
       - puts
@@ -57,6 +34,7 @@
     - 표준출력(모니터)으로 format이 지정하는 문자열을 출력한다.
     - http://www.cplusplus.com/reference/cstdio/printf/
 *** printf 예제 
+**** Source Code
     #+BEGIN_SRC C -n
  #include <stdio.h>
  int main(){
@@ -68,14 +46,16 @@
     return 0;
  }
     #+END_SRC
-*** 실행결과
-#+BEGIN_EXAMPLE
-     Characters:  a             A       
-     Decimals:    1977     650000       
-     Preceding    with    blanks:  1977 
-     Width        trick:       10       
-     A            string                
-#+END_EXAMPLE
+
+**** 실행결과
+ #+BEGIN_EXAMPLE
+      Characters:  a             A       
+      Decimals:    1977     650000       
+      Preceding    with    blanks:  1977 
+      Width        trick:       10       
+      A            string                
+ #+END_EXAMPLE
+
 *** scanf
     #+BEGIN_SRC C
   int scanf(const char * format, ...);
@@ -101,6 +81,7 @@ int main (){
   return 0;
 }
 #+END_SRC
+
 *** 실행결과
 #+BEGIN_EXAMPLE
 Enter your family name: Soulie
@@ -154,14 +135,31 @@ int main(int argc, char *argv[])
 **** 실행결과
 #+RESULTS:
 : Sum of odd numbers from 0 to 10 is 25
+
+*** %기호 출력하기
+**** Source Code
 #+BEGIN_SRC C -n
-#include <stdio.h>
-int main(){
-  for(int i=0; i<8; i++ )
-    printf("%d %% 3 = %d \n", i, i%3);
-  return 0;
-}
+  #include <stdio.h>
+  int main(){
+    for(int i=0; i<8; i++ ){
+      for (int j=2; j<6; j++)
+	printf("%d %% %d = %d \t", i, j, i%j);
+      puts("");
+    }
+    return 0;
+  }
 #+END_SRC
+**** 실행결과
+#+BEGIN_EXAMPLE
+ 0 % 2 = 0  0 % 3 = 0  0 % 4 = 0  0 % 5 = 0 
+ 1 % 2 = 1  1 % 3 = 1  1 % 4 = 1  1 % 5 = 1 
+ 2 % 2 = 0  2 % 3 = 2  2 % 4 = 2  2 % 5 = 2 
+ 3 % 2 = 1  3 % 3 = 0  3 % 4 = 3  3 % 5 = 3 
+ 4 % 2 = 0  4 % 3 = 1  4 % 4 = 0  4 % 5 = 4 
+ 5 % 2 = 1  5 % 3 = 2  5 % 4 = 1  5 % 5 = 0 
+ 6 % 2 = 0  6 % 3 = 0  6 % 4 = 2  6 % 5 = 1 
+ 7 % 2 = 1  7 % 3 = 1  7 % 4 = 3  7 % 5 = 2 
+#+END_EXAMPLE
 
 * 27. 조건문과 반복문
 *** if (조건) {실행문} else {실행문}
@@ -186,6 +184,7 @@ int main(){
     }
   }
 #+END_SRC
+
 *** switch-case 
 #+BEGIN_SRC C -n
   #include <stdio.h>
@@ -242,6 +241,8 @@ int main(){
     return f;
   }
 #+END_SRC
+
+
 *** for loop with while
 #+BEGIN_SRC C -n
 // 약수구하기
@@ -269,6 +270,7 @@ int main()
   }
 }
 #+END_SRC
+
 *** continue 예제
 #+BEGIN_SRC C -n
   #include <stdio.h>
@@ -297,6 +299,7 @@ int main()
     return 0;
   }
 #+END_SRC
+
 * 28. 배열 및 문자열
 *** 문자열 예제
 #+BEGIN_SRC C -n
@@ -438,7 +441,7 @@ int main() {
 *** Two columns
 * 30. 구조체 및 클래스
 *** struct
- #+BEGIN_SRC c++ -n
+ #+BEGIN_SRC C -n
 //    - 데이터와 이를 처리하는 함수가 분리
    typedef struct _Cpx{int32_t r, i;}Cpx;
    Cpx addCpx(Cpx c1, Cpx c2){
@@ -458,7 +461,7 @@ int main() {
  #+END_SRC
 
 *** class
- #+BEGIN_SRC c++ -n
+ #+BEGIN_SRC C -n
 //  - 데이터와 이를 처리하는 함수가 하나의 클래스내에 존재 
 class Cpx{
  public:
@@ -494,6 +497,7 @@ class Cpx{
    while(1){}
  }
  #+END_SRC
+
 
 * emacs 
 *** saving rectangles in registers
