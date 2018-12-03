@@ -114,6 +114,12 @@
   }
 #+END_SRC
 
+** sprintf, pulsein
+   - sprintf
+     - http://www.cplusplus.com/reference/cstdio/sprintf/
+   - pulsein
+     - https://www.arduino.cc/reference/en/language/functions/advanced-io/pulsein/
+
 ** pulsein function
 #+ATTR_HTML: :width 800 :hight 600
    [[./images/pulseIn.jpg]]
