@@ -48,6 +48,6 @@
    analogRead(pinNum);
    Serial.begin(9600);
    Serial.print("Hello World");
-   Serial.pirntln(theVariable);
+   Serial.println(theVariable);
    map(theValue,min, max, min, max);
   #+END_SRC
