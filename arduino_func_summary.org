@@ -6,7 +6,7 @@
    digitalRead(pinNum);
    delay(milli_second);
    analogWrite(pinNum, value);
-   alanlogRead(pinNum);
+   analogRead(pinNum);
    Serial.begin(9600);
    Serial.print("Hello World");
    Serial.pirntln(theVariable);

@@ -37,6 +37,7 @@
      +-------+-----+-----+-----+-----+-----+-----+-----+-----+
      |Arduino|     | A0  |     |     |     |     |     |     |
      +-------+-----+-----+-----+-----+-----+-----+-----+-----+
+
 * 아두이노 함수 정리 
   #+BEGIN_SRC C -n
    pinMode(pinNum, INPUT/OUTPUT);
@@ -44,7 +45,7 @@
    digitalRead(pinNum);
    delay(milli_second);
    analogWrite(pinNum, value);
-   alanlogRead(pinNum);
+   analogRead(pinNum);
    Serial.begin(9600);
    Serial.print("Hello World");
    Serial.pirntln(theVariable);
