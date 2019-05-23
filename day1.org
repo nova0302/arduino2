@@ -84,7 +84,13 @@
      + consolas
        
 *** 환경설정창
-   #+CAPTION: Tool Setting Dialog 
+   #+CAPTION: Tool Setting Dialog01 
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/arduinoSetting.jpg]]
+    
+
+   #+CAPTION: Tool Setting Dialog02 
 #+attr_html: :alt neural network :title Neural network representation :align right
 #+attr_html: :width 100% :height 100%
     [[./images/arduino_env01.jpg]]
