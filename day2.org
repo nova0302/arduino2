@@ -14,6 +14,28 @@
   - 조건문 및 반복문 이해
   - 함수의 사용법 이해 및 작성
   - struct 및 class의 차이점 이해
+* Arduino 기본 함수 요약 
+** port functions
+| 함수이름                    | 기능                             | 비고         |
+|-----------------------------+----------------------------------+--------------|
+| pinMode(pinNum, I/O)        | pinNum을 입력 또는 출력으로 설정 | INPUT/OUTPUT |
+| digitalWrite(pinNum, value) | pinNum에 value를 쓴다            | HIGH/LOW     |
+| digitalRead(pinNum)         | pinNum의 값을 읽는다.            |              |
+|                             |                                  |              |
+
+** communication
+| 함수이름                      | 기능                                   | 비고              |
+|-------------------------------+----------------------------------------+-------------------|
+| Serial.begin(baud_rate)       | 전송속도를 baud_rate으로 설정          | 9600, 115200, ... |
+| Serial.print("char_string")   | 문자열 출력                            |                   |
+| Serial.println("char_string") | 문자열 출력후 다음줄로 개행            |                   |
+| Serial.available()            |                                        |                   |
+| Serial.parseInt()             | 시리얼모니터로 부터 정수를 입력받는다. |                   |
+
+
+** Etc
+   - delay(miliseconds)
+
 
 * 데이터 타입 및 연산자    
 ** 데이터 타입
@@ -269,27 +291,6 @@ void loop(){
 }
 #+END_SRC
 * Class Summary
-** port functions
-| 함수이름                    | 기능                             | 비고         |
-|-----------------------------+----------------------------------+--------------|
-| pinMode(pinNum, I/O)        | pinNum을 입력 또는 출력으로 설정 | INPUT/OUTPUT |
-| digitalWrite(pinNum, value) | pinNum에 value를 쓴다            | HIGH/LOW     |
-| digitalRead(pinNum)         | pinNum의 값을 읽는다.            |              |
-|                             |                                  |              |
-
-** communication
-| 함수이름                      | 기능                                   | 비고              |
-|-------------------------------+----------------------------------------+-------------------|
-| Serial.begin(baud_rate)       | 전송속도를 baud_rate으로 설정          | 9600, 115200, ... |
-| Serial.print("char_string")   | 문자열 출력                            |                   |
-| Serial.println("char_string") | 문자열 출력후 다음줄로 개행            |                   |
-| Serial.available()            |                                        |                   |
-| Serial.parseInt()             | 시리얼모니터로 부터 정수를 입력받는다. |                   |
-
-
-** Etc
-   - delay(miliseconds)
-
 ** C/C++ Basic
    
 #+BEGIN_SRC c++ -n
