@@ -39,22 +39,39 @@
 * LED Basic
   
 ** 직접연결
+   - 프로그램을 사용하지 않고 Arduino의 전원에 직접연결
  #+caption: LED01Direct
  #+attr_html: :alt neural network :title Neural network representation :align right
  #+attr_html: :width 100% :height 100%
      [[./images/led01Direct.jpg]]
 
-** Source 회로
- #+caption: DLED02Source
- #+attr_html: :alt neural network :title Neural network representation :align right
- #+attr_html: :width 100% :height 100%
-     [[./images/led02Source.jpg]]
+** Arduino 프로그램으로 LED 제어
+*** Source 회로
+  #+caption: DLED02Source
+  #+attr_html: :alt neural network :title Neural network representation :align right
+  #+attr_html: :width 100% :height 100%
+      [[./images/led02Source.jpg]]
 
-** Sink 회로
- #+caption: DLED03Sink
- #+attr_html: :alt neural network :title Neural network representation :align right
- #+attr_html: :width 100% :height 100%
-     [[./images/led03Sink.jpg]]
+
+*** Sink 회로
+  #+caption: DLED03Sink
+  #+attr_html: :alt neural network :title Neural network representation :align right
+  #+attr_html: :width 100% :height 100%
+      [[./images/led03Sink.jpg]]
+
+#+BEGIN_SRC c -n
+  void setup()
+  {
+    pinMode(2, OUTPUT);
+  }
+
+  void loop()
+  {
+    digitalWrite(2, HIGH);
+
+  }
+#+END_SRC
+
 
 * 데이터 타입 및 연산자    
 ** 데이터 타입
