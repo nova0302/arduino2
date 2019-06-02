@@ -106,7 +106,42 @@
 #+attr_html: :width 100% :height 100%
     [[./images/basicFND.jpg]]
 *** 아두이노 코드 
-#+BEGIN_SRC c++ -n
+**** FND 기초
+ #+BEGIN_SRC c++ -n
+ const char fnd[] = {2, 3, 4, 5, 6, 7, 8, 9};
+ //                     ABCDEFGDp
+ const char fndChar[]={B00000011, //0
+		       B10011111, //1
+		       B00100101, //2
+		       B00001101, //3
+		       B10011001, //4
+		       B01001001, //4
+		       B01000001, //6
+		       B00011011, //7
+		       B00000001, //8
+		       B00001001  //9
+ };
+ void setup() {
+   for (int i = 0; i < 8; i++)
+     pinMode(fnd[i], OUTPUT);
+ }
+
+ void loop() {
+   for(int j=0; j<10; j++){
+     for (int i = 0; i < 8; i++) {
+       if ((fndChar[j]>>i & 0x1) == 0) 
+  	 digitalWrite(fnd[7-i], LOW);
+     }
+     delay(700);
+     for (int i = 0; i < 8; i++)
+       digitalWrite(fnd[i], HIGH);
+   }
+ }
+ #+END_SRC
+ 
+**** FND와 timer 사용하기
+ #+BEGIN_SRC c++ -n
+#include <MsTimer2.h>  // 타이머2 라이브러리 http://playground.arduino.cc/Main/MsTimer2
 const char fnd[] = {2, 3, 4, 5, 6, 7, 8, 9};
 //                     ABCDEFGDp
 const char fndChar[]={B00000011, //0
@@ -123,20 +158,25 @@ const char fndChar[]={B00000011, //0
 void setup() {
   for (int i = 0; i < 8; i++)
     pinMode(fnd[i], OUTPUT);
+  for (int i = 0; i < 8; i++)
+    digitalWrite(fnd[i], HIGH);
+  MsTimer2::set(1000, onFND);
+  MsTimer2::start();
 }
+void loop(){}
 
-void loop() {
-  for(int j=0; j<10; j++){
-    for (int i = 0; i < 8; i++) {
-      if ((fndChar[j]>>i & 0x1) == 0) 
-  	digitalWrite(fnd[7-i], LOW);
-    }
-    delay(700);
-    for (int i = 0; i < 8; i++)
-      digitalWrite(fnd[i], HIGH);
+void onFND() {
+  static int j=0;
+  if (j<10) j++;
+  else j=0;
+  for (int i = 0; i < 8; i++)
+    digitalWrite(fnd[i], HIGH);
+  for (int i = 0; i < 8; i++) {
+    if ((fndChar[j]>>i & 0x1) == 0) 
+      digitalWrite(fnd[7-i], LOW);
   }
 }
-#+END_SRC
+ #+END_SRC
 
 ** 회로도
    - http://www.tera-semicon.co.kr/e001/e001-019.html
