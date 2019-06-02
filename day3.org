@@ -98,6 +98,46 @@
 #+attr_html: :alt neural network :title Neural network representation :align right
 #+attr_html: :width 100% :height 100%
     [[./images/fnd_common_anode_cathode.jpg]]
+** 브레드보드 실습
+   
+*** 회로구성
+#+caption: FND 브레드보드
+#+attr_html: :alt neural network :title Neural network representation :align right
+#+attr_html: :width 100% :height 100%
+    [[./images/basicFND.jpg]]
+*** 아두이노 코드 
+#+BEGIN_SRC c++ -n
+const char fnd[] = {2, 3, 4, 5, 6, 7, 8, 9};
+//                     ABCDEFGDp
+const char fndChar[]={B00000011, //0
+		      B10011111, //1
+		      B00100101, //2
+		      B00001101, //3
+		      B10011001, //4
+		      B01001001, //4
+		      B01000001, //6
+		      B00011011, //7
+		      B00000001, //8
+		      B00001001  //9
+};
+void setup() {
+  for (int i = 0; i < 8; i++)
+    pinMode(fnd[i], OUTPUT);
+}
+
+void loop() {
+  for(int j=0; j<10; j++){
+    for (int i = 0; i < 8; i++) {
+      if ((fndChar[j]>>i & 0x1) == 0) 
+  	digitalWrite(fnd[7-i], LOW);
+    }
+    delay(700);
+    for (int i = 0; i < 8; i++)
+      digitalWrite(fnd[i], HIGH);
+  }
+}
+#+END_SRC
+
 ** 회로도
    - http://www.tera-semicon.co.kr/e001/e001-019.html
 #+caption: 회로도
