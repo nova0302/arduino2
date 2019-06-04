@@ -161,7 +161,7 @@
 **** FND와 timer 사용하기
  #+BEGIN_SRC c++ -n
 #include <MsTimer2.h>  // 타이머2 라이브러리 http://playground.arduino.cc/Main/MsTimer2
-const char fnd[] = {2, 3, 4, 5, 6, 7, 8, 9};
+ const char fnd[] = {A0, A1, A2, A3, A4, A5, A6, A7};
 //                     ABCDEFGDp
 const char fndChar[]={B00000011, //0
 		      B10011111, //1
