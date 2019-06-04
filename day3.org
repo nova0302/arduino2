@@ -109,11 +109,11 @@
 **** FND 기초 시작
  #+BEGIN_SRC c++ -n
  void setup() {
-     pinMode(2, OUTPUT);
+     pinMode(A0, OUTPUT);
  }
 
  void loop() {
-       digitalWrite(2, LOW);
+       digitalWrite(A0, LOW);
    }
  }
  #+END_SRC
@@ -127,7 +127,7 @@
 *** 아두이노 코드 
 **** FND 기초 완성
  #+BEGIN_SRC c++ -n
- const char fnd[] = {2, 3, 4, 5, 6, 7, 8, 9};
+ const char fnd[] = {A0, A1, A2, A3, A4, A5, A6, A7};
  //                     ABCDEFGDp
  const char fndChar[]={B00000011, //0
 		       B10011111, //1
