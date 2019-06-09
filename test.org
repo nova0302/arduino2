@@ -1,7 +1,56 @@
-#+title: 04. CdS
+#+title: Arduino Test
 #+options: toc:nil ^:nil tags:t f:t
-* 학습목표
-  - 디지탈 및 아날로그 I/O의 사용 방법을 익힌다.
-  - 아날로그 I/O를 사용하여 가변저항과 CDS의 값을 측정 할 수 있다.
-  - HT-01SV 센서 라이브러리를 사용하여 온도 및 습도를 측정 할 수 있다. 
-  - 서보모터의 동작을 이해하고 아날로그 I/O를 사용하여 이를 제어 할 수 있다.
+* 아두이노 테스트 
+  
+** 1. 다음 회로를 꾸미고 , 프로그램을 작성하여 LED를 켜시오.
+  #+caption: breadboard led circuit
+  #+attr_html: :alt neural network :title Neural network representation :align right
+  #+attr_html: :width 100% :height 100%
+      [[./images/led02Source.jpg]]
+   #+BEGIN_SRC c -n
+  void setup()
+  {
+    pinMode(A0, OUTPUT);
+  }
+  void loop()
+  {
+    digitalWrite(A0, HIGH);
+  }
+#+END_SRC
+
+
+** 2. 임의의 아두이노 보드를 테스트하는 프로그램을 작성하시오.
+   #+BEGIN_SRC c -n
+  void setup()
+  {
+    pinMode(LED_BUILTIN, OUTPUT);
+  }
+  void loop()
+  {
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(500);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(500);
+  }
+#+END_SRC
+** 3. 다음 회로를 꾸미고 , 프로그램을 작성하여 스위치로 LED를 제어하시오.
+   #+caption: Arduino Push button circuit
+  #+attr_html: :alt neural network :title Neural network representation :align right
+  #+attr_html: :width 100% :height 100%
+      [[./images/pushBtnInput.jpg]]
+   #+BEGIN_SRC c -n
+     void setup()
+     {
+       pinMode(LED_BUILTIN, OUTPUT);
+       pinMode(A0, INPUT_PULLUP);
+     }
+     void loop()
+     {
+       digitalWrite(LED_BUILTIN, digitalRead(A0));
+       if(digitalRead(A0) == HIGH)
+	 digitalWrite(LED_BUILTIN, HIGH);
+       else
+	 digitalWrite(LED_BUILTIN, LOW);
+     }
+#+END_SRC
+
