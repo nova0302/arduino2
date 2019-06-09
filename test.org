@@ -33,7 +33,7 @@
     delay(500);
   }
 #+END_SRC
-** 3. 다음 회로를 꾸미고 , 프로그램을 작성하여 스위치로 LED를 제어하시오.
+** 3. 다음 회로를 꾸미고 , 프로그램을 작성하여 스위치로 LED_BUILTIN를 제어하시오.
    #+caption: Arduino Push button circuit
   #+attr_html: :alt neural network :title Neural network representation :align right
   #+attr_html: :width 100% :height 100%
@@ -46,7 +46,7 @@
      }
      void loop()
      {
-       digitalWrite(LED_BUILTIN, digitalRead(A0));
+       //digitalWrite(LED_BUILTIN, digitalRead(A0));
        if(digitalRead(A0) == HIGH)
 	 digitalWrite(LED_BUILTIN, HIGH);
        else
