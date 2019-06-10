@@ -108,14 +108,14 @@
 *** 아두이노 코드 
 **** FND 기초 시작
  #+BEGIN_SRC c++ -n
- void setup() {
+   void setup() {
      pinMode(A0, OUTPUT);
- }
-
- void loop() {
-       digitalWrite(A0, LOW);
    }
- }
+
+   void loop() {
+     digitalWrite(A0, LOW);
+   }
+
  #+END_SRC
 
 *** 회로구성 2
