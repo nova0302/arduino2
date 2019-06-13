@@ -2,6 +2,9 @@
 #+options: toc:nil ^:nil tags:t f:t
 * 아두이노 테스트 
   
+** 주 의 사 항 
+   - 회로구성 및 프로그램 작성 후 다운로드 전 반드시 _보드_ 및 _포트_ 설정할것 
+  
 ** 1. 다음 회로를 꾸미고, 프로그램을 작성하여 LED를 켜시오.
   #+caption: breadboard led circuit
   #+attr_html: :alt neural network :title Neural network representation :align right
