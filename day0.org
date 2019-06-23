@@ -33,8 +33,39 @@
 #+attr_html: :alt neural network :title Neural network representation :align right
 #+attr_html: :width 100% :height 100%
     [[./images/dualLedDirectCommonPowerGround.jpg]]
+
+* How to remove a file on repo without deleting a local file
+  
+** use git rm
+  
+*** remove a file on both local and repo
+ #+BEGIN_SRC shell
+ git rm fileName.txt
+ git commit -m 'remove fileName.txt
+ #+END_SRC
     
     
+*** remove a file just on repo
+ #+BEGIN_SRC shell
+ git rm fileName.txt
+ git commit -m 'remove fileName.txt
+ #+END_SRC
+ 
+** and to push changes to repo
+#+BEGIN_SRC shell
+git push 
+#+END_SRC
+    
+    
+   
+  
+   
+    
+   
+   
+     
+   
+
    
   
    
