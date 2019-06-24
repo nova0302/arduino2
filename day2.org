@@ -362,4 +362,50 @@ void loop(){
 |           |                        |                               |
 
 
+* 도전과제 솔루션
+** 1. 연료게이지
+#+BEGIN_SRC c++ -n
+const char pinNum[] = {A0, A1, A2, A3};
+void setup()
+{
+  for (int i=0; i<4; i++) 
+    pinMode(pinNum[i], OUTPUT);
+}
+void loop()
+{
+  for (int i=0; i<4; ++i) 
+    {
+      digitalWrite(pinNum[i], HIGH);
+      delay(500);
+    }
+  for (int i=3; i > -1; i--) 
+    {
+      digitalWrite(pinNum[i], LOW);
+      delay(500);
+    }
+}
+#+END_SRC
+
+** 1. LED 쉬프트
+#+BEGIN_SRC c++ -n
+const char pinNum[] = {A0, A1, A2, A3};
+void setup()
+{
+  for (int i=0; i<4; i++) 
+    pinMode(pinNum[i], OUTPUT);
+}
+void loop()
+{
+  for (int i=0; i<4; ++i) 
+    {
+      digitalWrite(pinNum[i], HIGH);
+      delay(500);
+    }
+  for (int i=3; i > -1; i--) 
+    {
+      digitalWrite(pinNum[i], LOW);
+      delay(500);
+    }
+}
+#+END_SRC
 

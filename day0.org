@@ -34,6 +34,7 @@
 #+attr_html: :width 100% :height 100%
     [[./images/dualLedDirectCommonPowerGround.jpg]]
 
+ 
 * How to remove a file on repo without deleting a local file
   
 ** use git rm
