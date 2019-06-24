@@ -9,6 +9,8 @@
 #+HTML_HEAD_EXTRA: <style>pre {font-size:18px; font-family: 'consolas';}</style>
 
 * 학습목표
+  - 아두이노를 사용하여 LED제어
+  - for 구문 및 배열이해와  사용
   - 아두이노에서 사용하는 데이터의 유형이해
   - 각종 연산자 이해
   - 조건문 및 반복문 이해
@@ -75,7 +77,9 @@
   #+attr_html: :width 100% :height 100%
       [[./images/led04TwoLeds.jpg]]
 * LED 도전 과제
+
 [[https://youtu.be/1a6UXHEh7lc][** 과제 1. LED 연료 게이지]]
+
 [[https://www.youtube.com/watch?v=cAHdxtNOYIA][** 과제 2. LED 쉬프트(shift)]]
 
 * 데이터 타입 및 연산자    
