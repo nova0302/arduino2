@@ -74,6 +74,9 @@
   #+attr_html: :alt neural network :title Neural network representation :align right
   #+attr_html: :width 100% :height 100%
       [[./images/led04TwoLeds.jpg]]
+* LED 도전 과제
+[[https://youtu.be/1a6UXHEh7lc][** 과제 1. LED 연료 게이지]]
+[[https://www.youtube.com/watch?v=cAHdxtNOYIA][** 과제 2. LED 쉬프트(shift)]]
 
 * 데이터 타입 및 연산자    
 ** 데이터 타입

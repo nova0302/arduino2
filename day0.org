@@ -39,6 +39,7 @@
 ** use git rm
   
 *** remove a file on both local and repo
+https://stackoverflow.com/questions/2047465/how-can-i-delete-a-file-from-git-repo
  #+BEGIN_SRC shell
  git rm fileName.txt
  git commit -m 'remove fileName.txt
@@ -47,7 +48,7 @@
     
 *** remove a file just on repo
  #+BEGIN_SRC shell
- git rm fileName.txt
+ git rm --cached fileName.txt
  git commit -m 'remove fileName.txt
  #+END_SRC
  
