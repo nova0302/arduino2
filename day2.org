@@ -402,12 +402,16 @@ void loop()
     {
       digitalWrite(pinNum[i], HIGH);
       delay(500);
-    }
-  for (int i=3; i > -1; i--) 
-    {
       digitalWrite(pinNum[i], LOW);
+    }
+  for (int i=2; i > 0; i--) 
+    {
+      digitalWrite(pinNum[i], HIGH);
       delay(500);
+      digitalWrite(pinNum[i], LOW);
     }
 }
+
+
 #+END_SRC
 
