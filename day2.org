@@ -48,11 +48,15 @@
 
 ** Arduino 프로그램으로 LED 제어
 *** Source 회로
+    - 회로를 구동하기위해(즉, LED를 켜기위해) 로직 HIGH(1, 5V)를 인가해야 하는 회로.
+    - 위 직접연결 회로에서 5v에 연결된 케이블을 다음 그림과 같이 A0에 연결한다.
     #+caption: DLED02Source
     #+attr_html: :alt neural network :title Neural network representation :align right
     #+attr_html: :width 100% :height 100%
     [[./images/led02Source.jpg]]
 *** Sink 회로
+    - 회로를 구동하기위해(즉, LED를 켜기위해) 로직 LOW(0, 0V)를 인가해야 하는 회로.
+    - 위 직접연결 회로에서 GND에 연결된 케이블을 다음 그림과 같이 A0에 연결한다.
     #+caption: DLED03Sink
     #+attr_html: :alt neural network :title Neural network representation :align right
     #+attr_html: :width 100% :height 100%
@@ -90,7 +94,7 @@
    #+BEGIN_SRC c -n
   void setup()
   {
-    Serial.begin(9600);
+    Serial.begin(9600); // Arduino < - > Computer간 통신을 위해 반드시 필요
   }
 
   void loop()
@@ -114,16 +118,13 @@
    #+BEGIN_SRC c -n
   void setup()
   {
-    Serial.begin(9600);
+    Serial.begin(9600); // Arduino < - > Computer간 통신을 위해 반드시 필요
   }
 
   void loop()
   {
-    char mathScore1 = 80;
-    char mathScore2 = 90;
-    char mathScore3 = 77;
-
-    int total = mathScore1 + mathScore2 + mathScore3;
+    char mathScore = {80, 90, 77};
+    int total = mathScore[0] + mathScore[1] + mathScore[3];
     double average = total / 3;
 
     Serial.print("total: ");
@@ -138,13 +139,13 @@
    #+BEGIN_SRC c -n
      void setup()
      {
-       Serial.begin(9600);
+       Serial.begin(9600); // Arduino < - > Computer간 통신을 위해 반드시 필요
      }
 
      void loop()
      {
        char mathScore[] = {80 , 90 , 77};
-    
+
 
        int total = 0;
        for(int i=1; i<3; i++)
