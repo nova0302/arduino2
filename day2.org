@@ -80,9 +80,9 @@
 
 [[https://youtu.be/1a6UXHEh7lc][** 과제 1. LED 연료 게이지]]
 
-[[https://youtu.be/1ZElWgssvLU][** 과제 1-1. LED 연료게이지]]
+[[https://youtu.be/1ZElWgssvLU][** 과제 2-1. LED 쉬프트 동영상 1]]
 
-[[https://www.youtube.com/watch?v=cAHdxtNOYIA][** 과제 2. LED 쉬프트(shift)]]
+[[https://www.youtube.com/watch?v=cAHdxtNOYIA][** 과제 2-2. LED 쉬프트(shift) LED 쉴드]]
 
 * 데이터 타입 및 연산자    
 ** 데이터 타입
