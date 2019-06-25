@@ -10,7 +10,7 @@
 
 * 학습목표
   - 아두이노를 사용하여 LED제어
-  - for 구문 및 배열이해와  사용
+  - for 구문 및 배열의 이해와  사용
   - 아두이노에서 사용하는 데이터의 유형이해
   - 각종 연산자 이해
   - 조건문 및 반복문 이해
@@ -18,22 +18,21 @@
   - struct 및 class의 차이점 이해
 * Arduino 기본 함수 요약 
 ** port functions
-| 함수이름                    | 기능                             | 비고         |
-|-----------------------------+----------------------------------+--------------|
-| pinMode(pinNum, I/O)        | pinNum을 입력 또는 출력으로 설정 | INPUT/OUTPUT |
-| digitalWrite(pinNum, value) | pinNum에 value를 쓴다            | HIGH/LOW     |
-| digitalRead(pinNum)         | pinNum의 값을 읽는다.            |              |
-|                             |                                  |              |
+   | 함수이름                    | 기능                             | 비고         |
+   |-----------------------------+----------------------------------+--------------|
+   | pinMode(pinNum, I/O)        | pinNum을 입력 또는 출력으로 설정 | INPUT/OUTPUT |
+   | digitalWrite(pinNum, value) | pinNum에 value를 쓴다            | HIGH/LOW     |
+   | digitalRead(pinNum)         | pinNum의 값을 읽는다.            |              |
+   |                             |                                  |              |
 
 ** communication
-| 함수이름                      | 기능                                   | 비고              |
-|-------------------------------+----------------------------------------+-------------------|
-| Serial.begin(baud_rate)       | 전송속도를 baud_rate으로 설정          | 9600, 115200, ... |
-| Serial.print("char_string")   | 문자열 출력                            |                   |
-| Serial.println("char_string") | 문자열 출력후 다음줄로 개행            |                   |
-| Serial.available()            |                                        |                   |
-| Serial.parseInt()             | 시리얼모니터로 부터 정수를 입력받는다. |                   |
-
+   | 함수이름                      | 기능                                   | 비고              |
+   |-------------------------------+----------------------------------------+-------------------|
+   | Serial.begin(baud_rate)       | 전송속도를 baud_rate으로 설정          | 9600, 115200, ... |
+   | Serial.print("char_string")   | 문자열 출력                            |                   |
+   | Serial.println("char_string") | 문자열 출력후 다음줄로 개행            |                   |
+   | Serial.available()            |                                        |                   |
+   | Serial.parseInt()             | 시리얼모니터로 부터 정수를 입력받는다. |                   |
 
 ** Etc
    - delay(miliseconds)
@@ -42,24 +41,24 @@
   
 ** 직접연결
    - 프로그램을 사용하지 않고 Arduino의 전원에 직접연결
- #+caption: LED01Direct
- #+attr_html: :alt neural network :title Neural network representation :align right
- #+attr_html: :width 100% :height 100%
-     [[./images/led01Direct.jpg]]
+   #+caption: LED01Direct
+   #+attr_html: :alt neural network :title Neural network representation :align right
+   #+attr_html: :width 100% :height 100%
+   [[./images/led01Direct.jpg]]
 
 ** Arduino 프로그램으로 LED 제어
 *** Source 회로
-  #+caption: DLED02Source
-  #+attr_html: :alt neural network :title Neural network representation :align right
-  #+attr_html: :width 100% :height 100%
-      [[./images/led02Source.jpg]]
+    #+caption: DLED02Source
+    #+attr_html: :alt neural network :title Neural network representation :align right
+    #+attr_html: :width 100% :height 100%
+    [[./images/led02Source.jpg]]
 *** Sink 회로
-  #+caption: DLED03Sink
-  #+attr_html: :alt neural network :title Neural network representation :align right
-  #+attr_html: :width 100% :height 100%
-      [[./images/led03Sink.jpg]]
+    #+caption: DLED03Sink
+    #+attr_html: :alt neural network :title Neural network representation :align right
+    #+attr_html: :width 100% :height 100%
+    [[./images/led03Sink.jpg]]
 *** Arduino Program
-#+BEGIN_SRC c -n
+    #+BEGIN_SRC c -n
   void setup()
   {
     pinMode(A0, OUTPUT);
@@ -70,51 +69,128 @@
     digitalWrite(A0, HIGH);
 
   }
-#+END_SRC
+    #+END_SRC
+
 *** LED 2개 제어하기
-  #+caption: DLED03Sink
-  #+attr_html: :alt neural network :title Neural network representation :align right
-  #+attr_html: :width 100% :height 100%
-      [[./images/led04TwoLeds.jpg]]
+    #+caption: DLED03Sink
+    #+attr_html: :alt neural network :title Neural network representation :align right
+    #+attr_html: :width 100% :height 100%
+    [[./images/led04TwoLeds.jpg]]
 * LED 도전 과제 youtube 동영상
 
-[[https://youtu.be/1a6UXHEh7lc][** 과제 1. LED 연료 게이지]]
+  [[https://youtu.be/1a6UXHEh7lc][** 과제 1. LED 연료 게이지]]
 
-[[https://youtu.be/1ZElWgssvLU][** 과제 2-1. LED 쉬프트 동영상 1]]
+  [[https://youtu.be/1ZElWgssvLU][** 과제 2-1. LED 쉬프트 동영상 1]]
 
-[[https://www.youtube.com/watch?v=cAHdxtNOYIA][** 과제 2-2. LED 쉬프트 동영상 2]]
+  [[https://www.youtube.com/watch?v=cAHdxtNOYIA][** 과제 2-2. LED 쉬프트 동영상 2]]
+
+* 변수, 배열 및 for loop 둘러보기
+  
+** 예제 1. 변수를 사용
+   #+BEGIN_SRC c -n
+  void setup()
+  {
+    Serial.begin(9600);
+  }
+
+  void loop()
+  {
+    char mathScore = 80;
+    char englScore = 90;
+    char scieScore = 77;
+
+    int total = mathScore + englScore + scieScore;
+    double average = total / 3;
+
+    Serial.print("total: ");
+    Serial.println(total);
+    Serial.print("average: ");
+    Serial.println(average);
+    while(1);
+  }
+   #+END_SRC
+
+** 예제 2. 배열 사용
+   #+BEGIN_SRC c -n
+  void setup()
+  {
+    Serial.begin(9600);
+  }
+
+  void loop()
+  {
+    char mathScore1 = 80;
+    char mathScore2 = 90;
+    char mathScore3 = 77;
+
+    int total = mathScore1 + mathScore2 + mathScore3;
+    double average = total / 3;
+
+    Serial.print("total: ");
+    Serial.println(total);
+    Serial.print("average: ");
+    Serial.println(average);
+    while(1);
+  }
+   #+END_SRC
+
+** 예제 3. 배열 및 for loop 사용
+   #+BEGIN_SRC c -n
+     void setup()
+     {
+       Serial.begin(9600);
+     }
+
+     void loop()
+     {
+       char mathScore[] = {80 , 90 , 77};
+    
+
+       int total = 0;
+       for(int i=1; i<3; i++)
+	 total += mathscore[i];
+
+       double average = total / 3;
+
+       Serial.print("total: ");
+       Serial.println(total);
+       Serial.print("average: ");
+       Serial.println(average);
+       while(1);
+     }
+   #+END_SRC
 
 * 데이터 타입 및 연산자    
 ** 데이터 타입
    - C/C++는 다음과 같은 데이터 타입이 있으며,
    - 사용하고자 하는 목적에 따라 적절하게 선택하여야 한다.
    - uint8_t, uint16_t, uint32_t.
- #+caption: Data Types
- #+attr_html: :alt neural network :title Neural network representation :align right
- #+attr_html: :width 100% :height 100%
-     [[./images/data_type.jpg]]
+   #+caption: Data Types
+   #+attr_html: :alt neural network :title Neural network representation :align right
+   #+attr_html: :width 100% :height 100%
+   [[./images/data_type.jpg]]
 ** 연산자
- #+caption: Operators
- #+attr_html: :alt neural network :title Neural network representation :align right
- #+attr_html: :width 100% :height 100%
-     [[./images/operators.jpg]]
+   #+caption: Operators
+   #+attr_html: :alt neural network :title Neural network representation :align right
+   #+attr_html: :width 100% :height 100%
+   [[./images/operators.jpg]]
 
 * 조건문 및 반복문
 ** 조건문
 *** if(조건식), 조건식이 참이면 (즉, 0이 아니면) 다음 한 문장 또는 코드블럭을 실행.
-#+caption: if
-   #+BEGIN_SRC c++ -n
+    #+caption: if
+    #+BEGIN_SRC c++ -n
      if(3>4)
        Serial.println("3 is greater than 4");
       else
        Serial.println("3 is smaller than 4");
-   #+END_SRC
-#+caption: case
+    #+END_SRC
+    #+caption: case
 *** 위에서 부터 순차적으로 비교, 조건이 맞으면 실행, 그렇지 안으면 default 문실행
     - 열거형( enum ) : 코드를 보다 읽기 쉽게한다.
     - 새로운 사용자 타입지정(typedef) : uint32_t, char...과 같이 사용자가 원하는 새로운 변수 타입을 선언한다.
-#+caption: case 예제
-#+BEGIN_SRC c++ -n
+    #+caption: case 예제
+    #+BEGIN_SRC c++ -n
   //                    0        1      2
   typedef enum _Fruits {BANANA, APPLE, PEACH} Fruits;
   Fruits theFruit;
@@ -141,24 +217,24 @@
 	break;
     }
   } 
-#+END_SRC
+    #+END_SRC
 ** 반복문
    - 조건문과 더불어 하나 이상의 코드를 반복실행 하고자 할 때사용
    - for 문이 가장 많이 사용됨
 *** for(조건식)
     - 조건식이 참이면 다음 한문장 또는 코드블럭을 반복실행
-#+caption: for 순서도
-#+attr_html: :alt neural network :title Neural network representation :align right
-#+attr_html: :width 100% :height 100%
+    #+caption: for 순서도
+    #+attr_html: :alt neural network :title Neural network representation :align right
+    #+attr_html: :width 100% :height 100%
     [[./images/for.jpg]]
 
-#+caption: led_shield
-#+attr_html: :alt neural network :title Neural network representation :align right
-#+attr_html: :width 100% :height 100%
+    #+caption: led_shield
+    #+attr_html: :alt neural network :title Neural network representation :align right
+    #+attr_html: :width 100% :height 100%
     [[./images/led_shield.jpg]]
 
-#+caption: for 예제
-#+BEGIN_SRC c++ -n
+    #+caption: for 예제
+    #+BEGIN_SRC c++ -n
   /*   | Arduino    |   14 |   15 |   16 |   17 |
    *   |------------+------+------+------+------|
    *   | LED Shield | LED1 | LED2 | LED3 | LED4 |
@@ -181,21 +257,21 @@
       digitalWrite(pLed[i], LOW);
     delay(500);
   }
-#+END_SRC
+    #+END_SRC
 *** while(조건식)
     - 조건식이 참이면 다음 한문장 또는 코드블럭을 반복실행
-#+caption: while
-#+attr_html: :alt neural network :title Neural network representation :align right
-#+attr_html: :width 100% :height 100%
+    #+caption: while
+    #+attr_html: :alt neural network :title Neural network representation :align right
+    #+attr_html: :width 100% :height 100%
     [[./images/while.jpg]]
 
-#+caption: keypad_shield
-#+attr_html: :alt neural network :title Neural network representation :align right
-#+attr_html: :width 100% :height 100%
+    #+caption: keypad_shield
+    #+attr_html: :alt neural network :title Neural network representation :align right
+    #+attr_html: :width 100% :height 100%
     [[./images/keypad_shield.jpg]]
 
-#+caption: while example source
-#+BEGIN_SRC c++ -n
+    #+caption: while example source
+    #+BEGIN_SRC c++ -n
   /*   
    *   | Arduino    |   12 |   14 |   15 |   16 |   17 |
    *   |------------+------+------+------+------+------|
@@ -223,38 +299,38 @@
       digitalWrite(pLed[i], LOW);
     delay(500);
   }
-#+END_SRC
+    #+END_SRC
 
 *** do while(조건식)
     - 조건식이 참이면 다음 한문장 또는 코드블럭을 반복실행
     - 1회 이상 반복 실행
-#+caption: do while
-#+attr_html: :alt neural network :title Neural network representation :align right
-#+attr_html: :width 100% :height 100%
+    #+caption: do while
+    #+attr_html: :alt neural network :title Neural network representation :align right
+    #+attr_html: :width 100% :height 100%
     [[./images/do_while.jpg]]
 
 * 함수 작성 및 사용
   - C 언어에서는 함수 호출전에 함수의 선언(declaration)이나 정의(definition)가 있어야 하나,
   - 아두이노에서는 그러하지 않다.
 ** 함수의 선언(declaration)
-#+BEGIN_SRC c++ -n
+   #+BEGIN_SRC c++ -n
 //반환형 함수이름(인자){몸통}
   uint32_t addInt(uint32_t, uint32_t);
-#+END_SRC
+   #+END_SRC
 ** 함수정의(definition)
-  #+BEGIN_SRC c++ -n
+   #+BEGIN_SRC c++ -n
     uint32_t addInt(uint32_t x, uint32_t y){
       return x+y;
     }
-  #+END_SRC
+   #+END_SRC
 ** 함수의 사용
-#+BEGIN_SRC c++ -n
+   #+BEGIN_SRC c++ -n
   uint32_t a=3, b=4, z;
   z = addInt(a,b);
-#+END_SRC
+   #+END_SRC
 ** 예제
-#+caption: function, while && for example source
-#+BEGIN_SRC c++ -n
+   #+caption: function, while && for example source
+   #+BEGIN_SRC c++ -n
   uint32_t sumToN(uint32_t n){
     uint32_t temp=0;
     for (uint32_t i=n; i>0; i--) 
@@ -272,17 +348,17 @@
     Serial.print(" is ");
     Serial.println(sumToN(n));
   }
-#+END_SRC
+   #+END_SRC
 ** ASCII Table
    - https://en.wikipedia.org/wiki/ASCII
- #+caption: Data Types
- #+attr_html: :alt neural network :title Neural network representation :align right
- #+attr_html: :width 100% :height 100%
-     [[./images/ascii.jpg]]
+   #+caption: Data Types
+   #+attr_html: :alt neural network :title Neural network representation :align right
+   #+attr_html: :width 100% :height 100%
+   [[./images/ascii.jpg]]
 * struct 및 class
 ** struct
    - 데이터와 이를 처리하는 함수가 분리
-#+BEGIN_SRC c++ -n
+   #+BEGIN_SRC c++ -n
   typedef struct _Cpx{int32_t r, i;}Cpx;
   Cpx addCpx(Cpx c1, Cpx c2){
     Cpx temp;
@@ -298,11 +374,11 @@
     Serial.print(","); Serial.print(c3.i); Serial.print(")");
     while(1){}
   }
-#+END_SRC
+   #+END_SRC
 
 ** class
    - 데이터와 이를 처리하는 함수가 하나의 클래스내에 존재
-#+BEGIN_SRC c++ -n
+   #+BEGIN_SRC c++ -n
 class Cpx{
 public:
   int32_t r, i;
@@ -336,11 +412,11 @@ void loop(){
   Serial.print(","); Serial.print(c3.i); Serial.print(")");
   while(1){}
 }
-#+END_SRC
+   #+END_SRC
 * Class Summary
 ** C/C++ Basic
    
-#+BEGIN_SRC c++ -n
+   #+BEGIN_SRC c++ -n
   const pLed[] = {14, 15, 16, 17};
   typedef enum _Fruit{BANANA, APPLE, PEACH} Fruits;
   typedef struct _Cpx{int r, i} Cpx;
@@ -350,23 +426,23 @@ void loop(){
   while(){}
   for(;;){}
   int addInt(int a, int b);
-#+END_SRC
+   #+END_SRC
      
 ** 단축키
 
-| 단축키    | 기능                   | 비고                          |
-|-----------+------------------------+-------------------------------|
-| C-r       | 컴파일                 | 확인                          |
-| C-u       | 업로드                 |                               |
-| C-shift-m | 시리얼모니터           | USB케이블이 연결돼 있어야 함. |
-| C-t       | 문서전체 자동 들여쓰기 |                               |
-| C-/       | 선택영역 주석 / 해제   |                               |
-|           |                        |                               |
+   | 단축키    | 기능                   | 비고                          |
+   |-----------+------------------------+-------------------------------|
+   | C-r       | 컴파일                 | 확인                          |
+   | C-u       | 업로드                 |                               |
+   | C-shift-m | 시리얼모니터           | USB케이블이 연결돼 있어야 함. |
+   | C-t       | 문서전체 자동 들여쓰기 |                               |
+   | C-/       | 선택영역 주석 / 해제   |                               |
+   |           |                        |                               |
 
 
 * 도전과제 솔루션
 ** 1. 연료게이지
-#+BEGIN_SRC c++ -n
+   #+BEGIN_SRC c++ -n
 const char pinNum[] = {A0, A1, A2, A3};
 void setup()
 {
@@ -386,10 +462,10 @@ void loop()
       delay(500);
     }
 }
-#+END_SRC
+   #+END_SRC
 
 ** 1. LED 쉬프트
-#+BEGIN_SRC c++ -n
+   #+BEGIN_SRC c++ -n
 const char pinNum[] = {A0, A1, A2, A3};
 void setup()
 {
@@ -413,5 +489,5 @@ void loop()
 }
 
 
-#+END_SRC
+   #+END_SRC
 
