@@ -90,7 +90,7 @@
 
 * 변수, 배열 및 for loop 둘러보기
   
-** 예제 1. 변수를 사용
+** 예제 1. 변수 사용
    #+BEGIN_SRC c -n
   void setup()
   {
@@ -123,7 +123,7 @@
 
   void loop()
   {
-    char mathScore = {80, 90, 77};
+    char mathScore[3] = {80, 90, 77};
     int total = mathScore[0] + mathScore[1] + mathScore[3];
     double average = total / 3;
 
