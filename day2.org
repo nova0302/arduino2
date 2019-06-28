@@ -179,15 +179,24 @@
    #+END_SRC
 *** 2. 고급예제
     #+BEGIN_SRC c -n
-     void setup()
-     {
-       pinMode(A0, OUTPUT);
-       pinMode(A8, INPUT);
-     }
-     void loop()
-     {
-       digitalWrite(A0, digitalRead(A8));
-     }
+      void setup()
+      {
+	pinMode(A0, OUTPUT);
+	pinMode(A8, INPUT);
+      }
+      void loop()
+      {
+	int dlyAmt;
+	if (digitalRead(A8) == HIGH) 
+	  dlyAmt = 200; 
+	else
+	  dlyAmt = 200; 
+
+	digitalWrite(A0, HIGH);
+	delay(dlyAmt);
+	digitalWrite(A0, LOW);
+	delay(dlyAmt);
+      }
    #+END_SRC
  
 ** 두개의 LED 버튼 제어하기
