@@ -190,7 +190,7 @@
 	if (digitalRead(A8) == HIGH) 
 	  dlyAmt = 200; 
 	else
-	  dlyAmt = 200; 
+	  dlyAmt = 500; 
 
 	digitalWrite(A0, HIGH);
 	delay(dlyAmt);
@@ -227,6 +227,9 @@
 	 }
      }
    #+END_SRC
+   
+* 버튼 도전과제
+** 위 예제를 참고하여 버튼을 눌렀을 때 빨강색 LED가 100ms 주기로 점멸하고, 누르지 않았을 때 초록색 LED가 500ms 주기로 점멸하는 프로그램을 작성하시요.
 
 
 * 데이터 타입 및 연산자    
