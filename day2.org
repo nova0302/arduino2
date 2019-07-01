@@ -229,9 +229,43 @@
    #+END_SRC
    
 * 버튼 도전 과제
-** 위 예제를 참고하여 버튼을 눌렀을 때 빨강색 LED가 100ms 주기로 점멸하고, 누르지 않았을 때 초록색 LED가 500ms 주기로 점멸하는 프로그램을 작성하시요.
+** 1. 위 예제를 참고하여 버튼을 눌렀을 때 빨강색 LED가 100ms 주기로 점멸하고, 누르지 않았을 때 초록색 LED가 500ms 주기로 점멸하는 프로그램을 작성하시요.
 
 
+** 2. 버튼의 상태를 첵크하여 HIGH인경우 100, LOW인경우 500을 반환하는 함수를 작성하여 위 과제 1과같이 동작하도록 하시요.
+    #+BEGIN_SRC c -n
+      int chkBtn()
+      {
+	if (digitalRead(A8) == HIGH) 
+	  return 100; 
+	else
+	  return 500; 
+      }
+      void setup()
+      {
+	pinMode(A0, OUTPUT);
+	pinMode(A8, INPUT);
+      }
+      void loop()
+      {
+	int dlyAmt;
+	dlyAmt = chkBtn();
+
+	if (digitalRead(A8) == HIGH)
+	  {
+	    digitalWrite(A0, HIGH);
+	    digitalWrite(A1, LOW);
+	  }
+	else
+	  {
+	    digitalWrite(A0, LOW);
+	    digitalWrite(A1, HIGH);
+	  }
+
+	delay(dlyAmt);
+      }
+   #+END_SRC
+ 
 * 데이터 타입 및 연산자    
 ** 데이터 타입
    - C/C++는 다음과 같은 데이터 타입이 있으며,
