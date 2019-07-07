@@ -17,23 +17,7 @@
     digitalWrite(A0, HIGH);
   }
 #+END_SRC
-
-
-** 2. 임의의 아두이노 보드를 테스트하는 프로그램을 작성하시오.
-   #+BEGIN_SRC c -n
-  void setup()
-  {
-    pinMode(LED_BUILTIN, OUTPUT);
-  }
-  void loop()
-  {
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(500);
-    digitalWrite(LED_BUILTIN, LOW);
-    delay(500);
-  }
-#+END_SRC
-** 3. 다음 회로를 꾸미고, 프로그램을 작성하여 스위치로 LED를 제어하시오.
+** 2. 다음 회로를 꾸미고, 프로그램을 작성하여 스위치로 LED를 제어하시오.
    #+caption: Arduino Push button circuit
   #+attr_html: :alt neural network :title Neural network representation :align right
   #+attr_html: :width 100% :height 100%
@@ -52,5 +36,21 @@
        else
 	 digitalWrite(A0, LOW);
      }
+#+END_SRC
+
+
+** 3. 임의의 아두이노 보드를 테스트하는 프로그램을 작성하시오.
+   #+BEGIN_SRC c -n
+  void setup()
+  {
+    pinMode(LED_BUILTIN, OUTPUT);
+  }
+  void loop()
+  {
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(500);
+    digitalWrite(LED_BUILTIN, LOW);
+    delay(500);
+  }
 #+END_SRC
 
