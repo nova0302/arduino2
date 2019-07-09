@@ -4,8 +4,7 @@
   
 ** 주 의 사 항 - 회로구성 및 프로그램 작성 후 다운로드 전 반드시 *보드* 및 *포트* 설정할것
     
-** 참       고 - 함수 및 예약어
-   - pinMode, OUTPUT, INPUT, INPUT_PULLUP, digitalWrite, HIGH, LOW, digitalRead, LED_BUILTIN, delay
+** 함수 및 예약어 - pinMode, OUTPUT, INPUT, INPUT_PULLUP, digitalWrite, HIGH, LOW, digitalRead, LED_BUILTIN, delay
   
 ** 1. 다음 회로를 꾸미고, 프로그램을 작성하여 LED를 켜시오.
   #+caption: breadboard led circuit

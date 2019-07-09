@@ -129,16 +129,16 @@
  #+BEGIN_SRC c++ -n
    const char fndPort[] = {A0, A1, A2, A3, A4, A5, A6};
    //                     ABCDEFGDp
-   const char fndChar[]={B0000001, //0
-			 B1001111, //1
-			 B0010010, //2
-			 B0000110, //3
-			 B1001100, //4
-			 B0100100, //4
-			 B0100000, //6
-			 B0001101, //7
-			 B0000000, //8
-			 B0000100  //9
+   const char bitPattern[]={B0000001, //0
+			    B1001111, //1
+			    B0010010, //2
+			    B0000110, //3
+			    B1001100, //4
+			    B0100100, //4
+			    B0100000, //6
+			    B0001101, //7
+			    B0000000, //8
+			    B0000100  //9
    };
    void setup()
    {
@@ -151,7 +151,7 @@
      for(int j=0; j<10; j++)
        {
 	 for (int i = 0; i < 7; i++) {
-	   if ((fndChar[j]>>i & 0x1) == 0) 
+	   if ((bitPattern[j]>>i & 0x1) == 0) 
 	     digitalWrite(fndPort[7-i], LOW);
 	 }
 	 delay(700);
@@ -166,16 +166,16 @@
    #include <MsTimer2.h>  // 타이머2 라이브러리 http://playground.arduino.cc/Main/MsTimer2
    const char fndPort[] = {A0, A1, A2, A3, A4, A5, A6};
    //                     ABCDEFGDp
-   const char fndChar[]={B0000001, //0
-			 B1001111, //1
-			 B0010010, //2
-			 B0000110, //3
-			 B1001100, //4
-			 B0100100, //4
-			 B0100000, //6
-			 B0001101, //7
-			 B0000000, //8
-			 B0000100  //9
+   const char bitPattern[]={B0000001, //0
+			    B1001111, //1
+			    B0010010, //2
+			    B0000110, //3
+			    B1001100, //4
+			    B0100100, //4
+			    B0100000, //6
+			    B0001101, //7
+			    B0000000, //8
+			    B0000100  //9
    };
    void setup() {
      for (int i = 0; i < 7; i++)
@@ -202,7 +202,7 @@
 
      for (int i = 0; i < 7; i++)
        {
-	 if ((fndChar[j]>>i & 0x1) == 0) 
+	 if ((bitPattern[j]>>i & 0x1) == 0) 
 	   digitalWrite(fndPort[7-i], LOW);
        }
    }
