@@ -127,74 +127,74 @@
 *** 아두이노 코드 
 **** FND 기초 완성
  #+BEGIN_SRC c++ -n
- const char fnd[] = {A0, A1, A2, A3, A4, A5, A6, A7};
- //                     ABCDEFGDp
- const char fndChar[]={B00000011, //0
-		       B10011111, //1
-		       B00100101, //2
-		       B00001101, //3
-		       B10011001, //4
-		       B01001001, //4
-		       B01000001, //6
-		       B00011011, //7
-		       B00000001, //8
-		       B00001001  //9
- };
- void setup() {
-   for (int i = 0; i < 8; i++)
-     pinMode(fnd[i], OUTPUT);
- }
-
- void loop() {
-   for(int j=0; j<10; j++){
-     for (int i = 0; i < 8; i++) {
-       if ((fndChar[j]>>i & 0x1) == 0) 
-  	 digitalWrite(fnd[7-i], LOW);
-     }
-     delay(700);
-     for (int i = 0; i < 8; i++)
-       digitalWrite(fnd[i], HIGH);
+   const char fnd[] = {A0, A1, A2, A3, A4, A5, A6};
+   //                     ABCDEFGDp
+   const char fndChar[]={B0000001, //0
+			 B1001111, //1
+			 B0010010, //2
+			 B0000110, //3
+			 B1001100, //4
+			 B0100100, //4
+			 B0100000, //6
+			 B0001101, //7
+			 B0000000, //8
+			 B0000100  //9
+   };
+   void setup() {
+     for (int i = 0; i < 7; i++)
+       pinMode(fnd[i], OUTPUT);
    }
- }
+
+   void loop() {
+     for(int j=0; j<10; j++){
+       for (int i = 0; i < 7; i++) {
+	 if ((fndChar[j]>>i & 0x1) == 0) 
+	   digitalWrite(fnd[7-i], LOW);
+       }
+       delay(700);
+       for (int i = 0; i < 7; i++)
+	 digitalWrite(fnd[i], HIGH);
+     }
+   }
  #+END_SRC
  
 **** FND와 timer 사용하기
  #+BEGIN_SRC c++ -n
-#include <MsTimer2.h>  // 타이머2 라이브러리 http://playground.arduino.cc/Main/MsTimer2
- const char fnd[] = {A0, A1, A2, A3, A4, A5, A6, A7};
-//                     ABCDEFGDp
-const char fndChar[]={B00000011, //0
-		      B10011111, //1
-		      B00100101, //2
-		      B00001101, //3
-		      B10011001, //4
-		      B01001001, //4
-		      B01000001, //6
-		      B00011011, //7
-		      B00000001, //8
-		      B00001001  //9
-};
-void setup() {
-  for (int i = 0; i < 8; i++)
-    pinMode(fnd[i], OUTPUT);
-  for (int i = 0; i < 8; i++)
-    digitalWrite(fnd[i], HIGH);
-  MsTimer2::set(1000, onFND);
-  MsTimer2::start();
-}
-void loop(){}
+   #include <MsTimer2.h>  // 타이머2 라이브러리 http://playground.arduino.cc/Main/MsTimer2
+    const char fnd[] = {A0, A1, A2, A3, A4, A5, A6};
+   //                     ABCDEFGDp
+   const char fndChar[]={B0000001, //0
+			 B1001111, //1
+			 B0010010, //2
+			 B0000110, //3
+			 B1001100, //4
+			 B0100100, //4
+			 B0100000, //6
+			 B0001101, //7
+			 B0000000, //8
+			 B0000100  //9
+   };
+   void setup() {
+     for (int i = 0; i < 7; i++)
+       pinMode(fnd[i], OUTPUT);
+     for (int i = 0; i < 7; i++)
+       digitalWrite(fnd[i], HIGH);
+     MsTimer2::set(1000, onFND);
+     MsTimer2::start();
+   }
+   void loop(){}
 
-void onFND() {
-  static int j=0;
-  if (j<10) j++;
-  else j=0;
-  for (int i = 0; i < 8; i++)
-    digitalWrite(fnd[i], HIGH);
-  for (int i = 0; i < 8; i++) {
-    if ((fndChar[j]>>i & 0x1) == 0) 
-      digitalWrite(fnd[7-i], LOW);
-  }
-}
+   void onFND() {
+     static int j=0;
+     if (j<10) j++;
+     else j=0;
+     for (int i = 0; i < 7; i++)
+       digitalWrite(fnd[i], HIGH);
+     for (int i = 0; i < 7; i++) {
+       if ((fndChar[j]>>i & 0x1) == 0) 
+	 digitalWrite(fnd[7-i], LOW);
+     }
+   }
  #+END_SRC
 
 ** 회로도
