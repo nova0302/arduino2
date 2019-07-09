@@ -127,7 +127,7 @@
 *** 아두이노 코드 
 **** FND 기초 완성
  #+BEGIN_SRC c++ -n
-   const char fnd[] = {A0, A1, A2, A3, A4, A5, A6};
+   const char fndPort[] = {A0, A1, A2, A3, A4, A5, A6};
    //                     ABCDEFGDp
    const char fndChar[]={B0000001, //0
 			 B1001111, //1
@@ -140,28 +140,31 @@
 			 B0000000, //8
 			 B0000100  //9
    };
-   void setup() {
+   void setup()
+   {
      for (int i = 0; i < 7; i++)
-       pinMode(fnd[i], OUTPUT);
+       pinMode(fndPort[i], OUTPUT);
    }
 
-   void loop() {
-     for(int j=0; j<10; j++){
-       for (int i = 0; i < 7; i++) {
-	 if ((fndChar[j]>>i & 0x1) == 0) 
-	   digitalWrite(fnd[7-i], LOW);
+   void loop()
+   {
+     for(int j=0; j<10; j++)
+       {
+	 for (int i = 0; i < 7; i++) {
+	   if ((fndChar[j]>>i & 0x1) == 0) 
+	     digitalWrite(fndPort[7-i], LOW);
+	 }
+	 delay(700);
+	 for (int i = 0; i < 7; i++)
+	   digitalWrite(fndPort[i], HIGH);
        }
-       delay(700);
-       for (int i = 0; i < 7; i++)
-	 digitalWrite(fnd[i], HIGH);
-     }
    }
  #+END_SRC
  
 **** FND와 timer 사용하기
  #+BEGIN_SRC c++ -n
    #include <MsTimer2.h>  // 타이머2 라이브러리 http://playground.arduino.cc/Main/MsTimer2
-    const char fnd[] = {A0, A1, A2, A3, A4, A5, A6};
+   const char fndPort[] = {A0, A1, A2, A3, A4, A5, A6};
    //                     ABCDEFGDp
    const char fndChar[]={B0000001, //0
 			 B1001111, //1
@@ -176,24 +179,32 @@
    };
    void setup() {
      for (int i = 0; i < 7; i++)
-       pinMode(fnd[i], OUTPUT);
+       pinMode(fndPort[i], OUTPUT);
+
      for (int i = 0; i < 7; i++)
-       digitalWrite(fnd[i], HIGH);
+       digitalWrite(fndPort[i], HIGH);
+
      MsTimer2::set(1000, onFND);
      MsTimer2::start();
    }
    void loop(){}
 
-   void onFND() {
+   void onFND()
+   {
      static int j=0;
-     if (j<10) j++;
-     else j=0;
+     if (j<10)
+       j++;
+     else
+       j=0;
+
      for (int i = 0; i < 7; i++)
-       digitalWrite(fnd[i], HIGH);
-     for (int i = 0; i < 7; i++) {
-       if ((fndChar[j]>>i & 0x1) == 0) 
-	 digitalWrite(fnd[7-i], LOW);
-     }
+       digitalWrite(fndPort[i], HIGH);
+
+     for (int i = 0; i < 7; i++)
+       {
+	 if ((fndChar[j]>>i & 0x1) == 0) 
+	   digitalWrite(fndPort[7-i], LOW);
+       }
    }
  #+END_SRC
 
